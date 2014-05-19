@@ -38,74 +38,83 @@ class ImportItem extends Command
      */
     public function fire()
     {
-        $apiItem = new \Diabloheroes\D3api\Item($this->argument('item'), $this->argument('region'));
+	    try{
+	        $apiItem = new \Diabloheroes\D3api\Item($this->argument('item'), $this->argument('region'));
 
-        $apiItem->fetch();
+	        $apiItem->connector->cache = true;
+	        $apiItem->connector->cachingDir = app_path().'/storage/api/';
 
-        $item = Item::firstOrNew(['tooltip_params' => $this->argument('item')]);
+	        $apiItem->fetch();
 
-        if ($this->option('hero') != null)
-            $item->hero_id = $this->option('hero');
+	        $item = Item::firstOrNew(['tooltip_params' => $this->argument('item')]);
 
-        $item->fill([
-            'name' => $apiItem->getName(),
-            'icon' => $apiItem->getIcon(),
-            'required_level' => $apiItem->getRequiredLevel(),
-            'item_level' => $apiItem->getItemLevel(),
-            'bonus_affixes' => $apiItem->getBonusAffixes(),
-            'bonus_affixes_max' => $apiItem->getBonusAffixesMax(),
-            'account_bound' => $apiItem->getAccountBound(),
-            'type_name' => $apiItem->getTypeName(),
-            'two_handed' => $apiItem->getTwoHanded(),
-            'type_id' => $apiItem->getTypeId(),
-            'armor' => $apiItem->getArmorMin(),
-            'armor_max' => $apiItem->getArmorMax(),
-        ]);
+	        if ($this->option('hero') != null)
+	            $item->hero_id = $this->option('hero');
 
-        $item->save();
+	        $item->fill([
+	            'name' => $apiItem->getName(),
+	            'icon' => $apiItem->getIcon(),
+	            'required_level' => $apiItem->getRequiredLevel(),
+	            'item_level' => $apiItem->getItemLevel(),
+	            'bonus_affixes' => $apiItem->getBonusAffixes(),
+	            'bonus_affixes_max' => $apiItem->getBonusAffixesMax(),
+	            'account_bound' => $apiItem->getAccountBound(),
+	            'type_name' => $apiItem->getTypeName(),
+	            'two_handed' => $apiItem->getTwoHanded(),
+	            'type_id' => $apiItem->getTypeId(),
+	            'armor' => $apiItem->getArmorMin(),
+	            'armor_max' => $apiItem->getArmorMax(),
+	        ]);
 
-        foreach ($apiItem->getRawAttributes() as $attributeKey => $value) {
-            $itemAttribute = Item\Attribute::firstOrNew(['name' => $attributeKey]);
+	        $item->save();
 
-            $itemAttribute->save();
+	        foreach ($apiItem->getRawAttributes() as $attributeKey => $value) {
+	            $itemAttribute = Item\Attribute::firstOrNew(['name' => $attributeKey]);
 
-            $itemAttributeRaw = Item\Attribute\Raw::firstOrNew([
-                'item_id' => $item->id,
-                'item_attribute_id' => $itemAttribute->id
-            ]);
+	            $itemAttribute->save();
 
-            $itemAttributeRaw->min = $value['min'];
-            $itemAttributeRaw->max = $value['max'];
+	            $itemAttributeRaw = Item\Attribute\Raw::firstOrNew([
+	                'item_id' => $item->id,
+	                'item_attribute_id' => $itemAttribute->id
+	            ]);
 
-            $itemAttributeRaw->save();
-        }
+	            $itemAttributeRaw->min = $value['min'];
+	            $itemAttributeRaw->max = $value['max'];
 
-        foreach($apiItem->getGems() as $apiGem)
-        {
-            $gem = Gem::firstOrNew([
-                'blizzard_id' => $apiGem->getId()
-            ]);
+	            $itemAttributeRaw->save();
+	        }
 
-            $gem->fill([
-                'name' => $apiGem->getName(),
-                'icon' => $apiGem->getIcon(),
-                'display_color' => $apiGem->getDisplayColor(),
-                'tooltip_params' => $apiGem->getTooltipParams(),
-            ]);
+	        foreach($apiItem->getGems() as $apiGem)
+	        {
+	            $gem = Gem::firstOrNew([
+	                'blizzard_id' => $apiGem->getId()
+	            ]);
 
-            $gem->save();
+	            $gem->fill([
+	                'name' => $apiGem->getName(),
+	                'icon' => $apiGem->getIcon(),
+	                'display_color' => $apiGem->getDisplayColor(),
+	                'tooltip_params' => $apiGem->getTooltipParams(),
+	            ]);
 
-            $itemGem = Item\Gem::firstOrNew([
-                'item_id' => $item->id,
-                'gem_id' => $gem->id,
-            ]);
+	            $gem->save();
 
-            $itemGem->slot = $apiGem->getSlot();
+	            $itemGem = Item\Gem::firstOrNew([
+	                'item_id' => $item->id,
+	                'gem_id' => $gem->id,
+	            ]);
 
-            $itemGem->save();
-        }
+	            $itemGem->slot = $apiGem->getSlot();
 
-        echo sprintf("\t\tItem %s imported\n", $apiItem->getName());
+	            $itemGem->save();
+	        }
+
+	        echo sprintf("\t\tItem %s imported\n", $apiItem->getName());
+	    }
+	    catch(Exception $e)
+	    {
+		    echo $e->getMessage();
+	    }
     }
 
     /**

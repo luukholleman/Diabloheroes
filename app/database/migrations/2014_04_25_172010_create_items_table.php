@@ -17,7 +17,7 @@ class CreateItemsTable extends Migration {
          */
         Schema::create('items', function(Blueprint $table) {
 			$table->increments('id');
-            $table->integer('hero_id')->unsigned();
+            $table->integer('hero_id')->unsigned()->nullable();
             $table->string('blizzard_id', 20);
             $table->string('name', 50);
             $table->string('icon', 50);
@@ -53,14 +53,20 @@ class CreateItemsTable extends Migration {
          */
         Schema::table('items', function($table){
             $table->foreign('hero_id')->references('id')
-                ->on('heroes');
+                ->on('heroes')
+                ->onUpdate('cascade')
+	            ->onDelete('set null');
         });
 
         Schema::table('item_attribute_raw', function($table){
             $table->foreign('item_id')->references('id')
-                ->on('items');
+                ->on('items')
+	            ->onUpdate('cascade')
+	            ->onDelete('cascade');
             $table->foreign('item_attribute_id')->references('id')
-                ->on('item_attributes');
+                ->on('item_attributes')
+	            ->onUpdate('cascade')
+	            ->onDelete('cascade');
         });
 	}
 

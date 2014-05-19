@@ -28,7 +28,7 @@ class CreateCareersTable extends Migration {
             $table->string('time_played');
             $table->smallInteger('paragon_level');
             $table->smallInteger('hardcore_paragon_level');
-            $table->integer('last_played_hero');
+            $table->integer('last_played_hero')->nullable();
             $table->timestamps();
         });
 
@@ -37,7 +37,9 @@ class CreateCareersTable extends Migration {
          */
         Schema::table('career_regions', function($table){
             $table->foreign('career_id')->references('id')
-                ->on('careers');
+                ->on('careers')
+                ->onUpdate('cascade')
+                ->onDelete('cascade');
         });
 	}
 

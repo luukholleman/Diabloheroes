@@ -28,9 +28,13 @@ class CreateStatsTable extends Migration {
 
         Schema::table('hero_stats', function($table){
             $table->foreign('stat_id')->references('id')
-                ->on('stats');
+                ->on('stats')
+	            ->onUpdate('cascade')
+	            ->onDelete('cascade');
             $table->foreign('hero_id')->references('id')
-                ->on('heroes');
+                ->on('heroes')
+	            ->onUpdate('cascade')
+	            ->onDelete('cascade');
         });
 	}
 

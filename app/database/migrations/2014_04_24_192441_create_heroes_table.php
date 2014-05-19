@@ -19,6 +19,7 @@ class CreateHeroesTable extends Migration {
             $table->string('region', 2);
             $table->string('name', 25);
             $table->boolean('gender');
+            $table->string('klass', 15);
             $table->smallInteger('level');
             $table->boolean('hardcore');
             $table->boolean('dead');
@@ -28,7 +29,9 @@ class CreateHeroesTable extends Migration {
 
         Schema::table('heroes', function($table){
             $table->foreign('career_region_id')->references('id')
-                ->on('career_regions');
+                ->on('career_regions')
+	            ->onUpdate('cascade')
+	            ->onDelete('cascade');
         });
 	}
 

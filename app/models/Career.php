@@ -25,7 +25,46 @@
  * @method static \Illuminate\Database\Query\Builder|\Career whereLastPlayedHero($value)
  * @method static \Illuminate\Database\Query\Builder|\Career whereCreatedAt($value)
  * @method static \Illuminate\Database\Query\Builder|\Career whereUpdatedAt($value)
+ * @property-read \Illuminate\Database\Eloquent\Collection|\Career\Region[] $careerRegion
  */
 class Career extends \Eloquent {
     public $guarded = ['id'];
+
+	public function careerRegions()
+	{
+		return $this->hasMany('Career\Region');
+	}
+
+	public function ranks()
+	{
+		return $this->morphMany('\Ranklist\Rank', 'rankable');
+	}
+
+    public function getRankValue($ranklist, $hardcore)
+    {
+        switch($ranklist->stat)
+        {
+            case "paragon":
+                return $this->getMaxParagonLevel($hardcore);
+
+        }
+    }
+
+    public function getMaxParagonLevel($hardcore)
+    {
+        $max = 0;
+
+        foreach($this->careerRegions as $careerRegion)
+            if($hardcore == \Career\Region::SOFTCORE)
+            {
+                if($careerRegion->paragon_level > $max) $max = $careerRegion->paragon_level;
+            }
+            else
+            {
+                if($careerRegion->hardcore_paragon_level > $max) $max = $careerRegion->hardcore_paragon_level;
+            }
+
+        return $max;
+    }
+
 }

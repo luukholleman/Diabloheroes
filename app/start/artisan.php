@@ -15,4 +15,8 @@ Artisan::add(new ImportCareer());
 Artisan::add(new ImportHero());
 Artisan::add(new ImportItem());
 Artisan::add(new ImportTest());
+Artisan::add(new RankHero());
+Artisan::add(new UpdateRanklists());
+Artisan::add(new HeroRanklist());
+Artisan::add(new CareerRanklist());
 

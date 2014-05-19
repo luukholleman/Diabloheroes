@@ -4,22 +4,25 @@
 	"keywords": ["framework", "laravel"],
 	"license": "MIT",
 	"require": {
-		"laravel/framework": "4.1.*",
-        "barryvdh/laravel-ide-helper": "1.*",
-        "way/generators": "2.*",
-        "aveley/artisan-queue": "dev-master"
+        "laravel/framework": "4.2.*"
 	},
     "require-dev": {
-        "laracasts/testdummy": "1.*"
+        "laracasts/testdummy": "1.*",
+        "barryvdh/laravel-debugbar": "1.*",
+        "barryvdh/laravel-ide-helper": "1.*",
+        "way/generators": "2.*",
+        "pda/pheanstalk": "2.*"
     },
 	"autoload": {
 		"classmap": [
 			"app/commands",
 			"app/controllers",
 			"app/models",
+			"app/repositories",
 			"app/database/migrations",
 			"app/database/seeds",
-			"app/tests"
+			"app/tests",
+			"app/exceptions"
 		]
 	},
 	"scripts": {
@@ -39,5 +42,5 @@
 	"config": {
 		"preferred-install": "dist"
 	},
-	"minimum-stability": "stable"
+	"minimum-stability": "dev"
 }

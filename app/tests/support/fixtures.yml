@@ -1,7 +1,16 @@
-#Career:
-#  battletag: aveley#2218
-#  monsters_killed: $integer
-#  hardcore_monsters_killed: $integer
-#  elites_killed: $integer
-#  paragon_level: $integer
-#  hardcore_paragon_level: $integer
+Career:
+  battletag: aveley#2218
+
+Career\Region:
+  monsters_killed: $integer
+  hardcore_monsters_killed: $integer
+  elites_killed: $integer
+  paragon_level: $integer
+  hardcore_paragon_level: $integer
+  career_id:
+    type: Career
+
+Hero:
+  name: Aveley
+  career_region_id:
+    type: Career\Region

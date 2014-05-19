@@ -4,7 +4,8 @@ use Illuminate\Console\Command;
 use Symfony\Component\Console\Input\InputOption;
 use Symfony\Component\Console\Input\InputArgument;
 
-class ImportHero extends Command {
+class ImportHero extends Command
+{
 
 	/**
 	 * The console command name.
@@ -37,135 +38,140 @@ class ImportHero extends Command {
 	 */
 	public function fire()
 	{
-        $apiHero = new \Diabloheroes\D3api\Hero($this->argument('battletag'), $this->argument('hero_id'), $this->argument('region'));
+		try {
+			$apiHero = new \Diabloheroes\D3api\Hero($this->argument('battletag'), $this->argument('hero_id'), $this->argument('region'));
 
-        $apiHero->fetch();
+			$apiHero->connector->cache = true;
+			$apiHero->connector->cachingDir = app_path() . '/storage/api/';
 
-        $hero = Hero::firstOrNew(['blizzard_id' => $apiHero->getId()]);
+			$apiHero->fetch();
 
-        if($this->option('career') != null)
-            $hero->career_region_id = $this->option('career');
+			$hero = Hero::firstOrNew(['blizzard_id' => $apiHero->getId()]);
 
-        $hero->fill([
-            'region' => $this->argument('region'),
-            'name' => $apiHero->getName(),
-            'gender' => $apiHero->getGender(),
-            'level' => $apiHero->getLevel(),
-            'hardcore' => $apiHero->getHardcore(),
-            'dead' => $apiHero->getDead(),
-            'last_played' => $apiHero->getLastUpdated(),
-        ]);
+			if ($this->option('career') != null)
+				$hero->career_region_id = $this->option('career');
 
-        $hero->save();
+			$hero->fill([
+				'region' => $this->argument('region'),
+				'name' => $apiHero->getName(),
+				'gender' => $apiHero->getGender(),
+				'klass' => $apiHero->getClass(),
+				'level' => $apiHero->getLevel(),
+				'hardcore' => $apiHero->getHardcore(),
+				'dead' => $apiHero->getDead(),
+				'last_played' => date('c', $apiHero->getLastUpdated()),
+			]);
 
-        foreach($apiHero->getStats() as $name => $value)
-        {
-            $stat = Stat::firstOrCreate(['name' => $name]);
+			$hero->save();
 
-            $heroStat = \Hero\Stat::firstOrNew([
-                'hero_id' => $hero->id,
-                'stat_id' => $stat->id,
-            ]);
+			foreach ($apiHero->getStats() as $name => $value) {
+				$stat = Stat::firstOrCreate(['name' => $name]);
 
-            $heroStat->value = $value;
+				$heroStat = \Hero\Stat::firstOrNew([
+					'hero_id' => $hero->id,
+					'stat_id' => $stat->id,
+				]);
 
-            $heroStat->save();
-        }
+				$heroStat->value = $value;
 
-        $hero->destroySkillActives();
+				$heroStat->save();
+			}
 
-        foreach($apiHero->getActiveSkills() as $apiSkillActive)
-        {
-            $skillActiveCategory = \Skill\Active\Category::firstOrCreate([
-                'name' => $apiSkillActive->getCategorySlug()
-            ]);
+			$hero->destroySkillActives();
 
-            $skillActive = \Skill\Active::firstOrNew([
-                'skill_active_category_id' => $skillActiveCategory->id,
-                'slug' => $apiSkillActive->getSlug(),
-            ]);
+			foreach ($apiHero->getActiveSkills() as $apiSkillActive) {
+				$skillActiveCategory = \Skill\Active\Category::firstOrCreate([
+					'name' => $apiSkillActive->getCategorySlug()
+				]);
 
-            $skillActive->fill([
-                'name' => $apiSkillActive->getName(),
-                'icon' => $apiSkillActive->getIcon(),
-                'level' => $apiSkillActive->getLevel(),
-                'tooltip_url' => $apiSkillActive->getTooltipUrl(),
-                'description' => $apiSkillActive->getDescription(),
-                'simple_description' => $apiSkillActive->getSimpleDescription(),
-                'skill_calc_id' => $apiSkillActive->getSkillCalcId()
-            ]);
+				$skillActive = \Skill\Active::firstOrNew([
+					'skill_active_category_id' => $skillActiveCategory->id,
+					'slug' => $apiSkillActive->getSlug(),
+				]);
 
-            $skillActive->save();
+				$skillActive->fill([
+					'name' => $apiSkillActive->getName(),
+					'icon' => $apiSkillActive->getIcon(),
+					'level' => $apiSkillActive->getLevel(),
+					'tooltip_url' => $apiSkillActive->getTooltipUrl(),
+					'description' => $apiSkillActive->getDescription(),
+					'simple_description' => $apiSkillActive->getSimpleDescription(),
+					'skill_calc_id' => $apiSkillActive->getSkillCalcId()
+				]);
 
-            if($apiSkillActive->hasRune())
-            {
-                $apiRune = $apiSkillActive->getRune();
+				$skillActive->save();
 
-                $rune = Rune::firstOrNew([
-                    'slug' => $apiRune->getSlug()
-                ]);
+				if ($apiSkillActive->hasRune()) {
+					$apiRune = $apiSkillActive->getRune();
 
-                $rune->fill([
-                    'type' => $apiRune->getType(),
-                    'name' => $apiRune->getName(),
-                    'level' => $apiRune->getLevel(),
-                    'tooltip_url' => $apiRune->getTooltipUrl(),
-                    'description' => $apiRune->getDescription(),
-                    'simple_description' => $apiRune->getSimpleDescription(),
-                    'skill_calc_id' => $apiRune->getSkillCalcId(),
-                    'order' => $apiRune->getOrder()
-                ]);
+					$rune = Rune::firstOrNew([
+						'slug' => $apiRune->getSlug()
+					]);
 
-                $rune->save();
-            }
+					$rune->fill([
+						'type' => $apiRune->getType(),
+						'name' => $apiRune->getName(),
+						'level' => $apiRune->getLevel(),
+						'tooltip_url' => $apiRune->getTooltipUrl(),
+						'description' => $apiRune->getDescription(),
+						'simple_description' => $apiRune->getSimpleDescription(),
+						'skill_calc_id' => $apiRune->getSkillCalcId(),
+						'order' => $apiRune->getOrder()
+					]);
 
-            $heroSkillActive = \Hero\Skill\Active::firstOrNew([
-                'skill_active_id' => $skillActive->id,
-                'hero_id' => $hero->id,
-            ]);
+					$rune->save();
+				}
 
-            if(isset($rune))
-                $heroSkillActive->rune_id = $rune->id;
+				$heroSkillActive = \Hero\Skill\Active::firstOrNew([
+					'skill_active_id' => $skillActive->id,
+					'hero_id' => $hero->id,
+				]);
 
-            $heroSkillActive->save();
-        }
+				if (isset($rune))
+					$heroSkillActive->rune_id = $rune->id;
 
-        foreach($apiHero->getPassiveSkills() as $apiSkillPassive)
-        {
-            $skillPassive = \Skill\Passive::firstOrNew([
-                'slug' => $apiSkillPassive->getSlug()
-            ]);
+				$heroSkillActive->save();
+			}
 
-            $skillPassive->fill([
-                'name' => $apiSkillPassive->getName(),
-                'icon' => $apiSkillPassive->getIcon(),
-                'level' => $apiSkillPassive->getLevel(),
-                'tooltip_url' => $apiSkillPassive->getTooltipUrl(),
-                'description' => $apiSkillPassive->getDescription(),
-                'flavor' => $apiSkillPassive->getFlavor(),
-                'skill_calc_id' => $apiSkillPassive->getSkillCalcId(),
-            ]);
+			foreach ($apiHero->getPassiveSkills() as $apiSkillPassive) {
+				$skillPassive = \Skill\Passive::firstOrNew([
+					'slug' => $apiSkillPassive->getSlug()
+				]);
 
-            $skillPassive->save();
+				$skillPassive->fill([
+					'name' => $apiSkillPassive->getName(),
+					'icon' => $apiSkillPassive->getIcon(),
+					'level' => $apiSkillPassive->getLevel(),
+					'tooltip_url' => $apiSkillPassive->getTooltipUrl(),
+					'description' => $apiSkillPassive->getDescription(),
+					'flavor' => $apiSkillPassive->getFlavor(),
+					'skill_calc_id' => $apiSkillPassive->getSkillCalcId(),
+				]);
 
-            $heroSkillPassive = \Hero\Skill\Passive::firstOrNew([
-                'skill_passive_id' => $skillPassive->id,
-                'hero_id' => $hero->id,
-            ]);
+				$skillPassive->save();
 
-            $heroSkillPassive->save();
-        }
+				$heroSkillPassive = \Hero\Skill\Passive::firstOrNew([
+					'skill_passive_id' => $skillPassive->id,
+					'hero_id' => $hero->id,
+				]);
 
-        echo sprintf("\tHero %s imported\n", $apiHero->getName());
+				$heroSkillPassive->save();
+			}
 
-        foreach($apiHero->getItems(false) as $item)
-        {
-            $this->call('item:import', [
-                'item' => $item->getTooltipParams(),
-                'region' => 'eu',
-                '--hero' => $hero->id
-            ]);
-        }
+			echo sprintf("\tHero %s imported\n", $apiHero->getName());
+
+			foreach ($apiHero->getItems(false) as $item) {
+				$this->call('item:import', [
+					'item' => $item->getTooltipParams(),
+					'region' => 'eu',
+					'--hero' => $hero->id
+				]);
+			}
+
+		} catch (Exception $e) {
+			echo $e->getMessage();
+		}
+
 	}
 
 	/**
@@ -176,9 +182,9 @@ class ImportHero extends Command {
 	protected function getArguments()
 	{
 		return array(
-            array('battletag', InputArgument::REQUIRED, 'Battletag to import'),
-            array('hero_id', InputArgument::REQUIRED, 'Hero id to import'),
-            array('region', InputArgument::REQUIRED, 'Region'),
+			array('battletag', InputArgument::REQUIRED, 'Battletag to import'),
+			array('hero_id', InputArgument::REQUIRED, 'Hero id to import'),
+			array('region', InputArgument::REQUIRED, 'Region'),
 		);
 	}
 

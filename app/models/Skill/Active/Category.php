@@ -9,6 +9,12 @@
 namespace Skill\Active;
 
 
+/**
+ * Skill\Active\Category
+ *
+ * @property integer $id
+ * @property string $name
+ */
 class Category extends \Eloquent {
     public $guarded = ['id'];
 

@@ -37,6 +37,8 @@ class ImportCareer extends Command {
 	 */
 	public function fire()
 	{
+        DB::connection()->disableQueryLog();
+
         $regions = array();
 
         if($this->option('region') != null)
@@ -56,47 +58,58 @@ class ImportCareer extends Command {
 
     public function importCareer($battletag, $region)
     {
+	    try {
+	        $apiCareer = new \Diabloheroes\D3api\Career($battletag, $region);
 
-        $apiCareer = new \Diabloheroes\D3api\Career($battletag, $region);
+	        $apiCareer->connector->cache = true;
+	        $apiCareer->connector->cachingDir = app_path().'/storage/api/';
 
-        if($apiCareer->fetch()){
-            $career = Career::firstOrNew(['battletag' => $apiCareer->getBattletag()]);
+	        if($apiCareer->fetch()){
+	            $career = Career::firstOrNew(['battletag' => $apiCareer->getBattletag()]);
 
-            $career->save();
+	            $career->save();
 
-            $careerRegion = \Career\Region::firstOrNew([
-                'career_id' => $career->id,
-                'region' => $region
-            ]);
+	            $careerRegion = \Career\Region::firstOrNew([
+	                'career_id' => $career->id,
+	                'region' => $region
+	            ]);
 
-            $careerRegion->fill([
-                'monsters_killed' => $apiCareer->getMonstersKilled(),
-                'hardcore_monsters_killed' => $apiCareer->getHardcoreMonstersKilled(),
-                'elites_killed' => $apiCareer->getElitesKilled(),
-                'time_played' => json_encode($apiCareer->getTimePlayed()),
-                'paragon_level' => $apiCareer->getParagonLevel(),
-                'hardcore_paragon_level' => $apiCareer->getHardcoreParagonLevel(),
-                'last_played_hero' => $apiCareer->getLastPlayedHero()->getId(),
-            ]);
+	            $careerRegion->fill([
+	                'monsters_killed' => $apiCareer->getMonstersKilled(),
+	                'hardcore_monsters_killed' => $apiCareer->getHardcoreMonstersKilled(),
+	                'elites_killed' => $apiCareer->getElitesKilled(),
+	                'time_played' => json_encode($apiCareer->getTimePlayed()),
+	                'paragon_level' => $apiCareer->getParagonLevel(),
+	                'hardcore_paragon_level' => $apiCareer->getHardcoreParagonLevel(),
+	                'last_played_hero' => @$apiCareer->getLastPlayedHero(false)->getId(),
+	            ]);
 
-            $careerRegion->save();
+	            $careerRegion->save();
 
-            echo sprintf("Career %s %s imported\n", $region, $battletag);
+	            echo sprintf("Career %s %s imported\n", $region, $battletag);
 
-            foreach($apiCareer->getHeroes(false) as $hero)
-            {
-                $this->call('hero:import', [
-                    'battletag' => $battletag,
-                    'hero_id' => $hero->getId(),
-                    'region' => $region,
-                    '--career' => $career->id,
-                ]);
-            }
-        }
-        else
-        {
-            echo sprintf("Career %s %s NOT imported\n", $region, $battletag);
-        }
+		        foreach($apiCareer->getHeroes(false) as $hero)
+		        {
+			        $existingHero = Hero::whereBlizzardId($hero->getId())->first();
+
+			        if($existingHero == null || $existingHero->eligibleForUpdate($hero->getLastUpdated()))
+				        $this->call('hero:import', [
+					        'battletag' => $battletag,
+					        'hero_id' => $hero->getId(),
+					        'region' => $region,
+					        '--career' => $career->id,
+				        ]);
+		        }
+	        }
+	        else
+	        {
+	            echo sprintf("Career %s %s NOT imported\n", $region, $battletag);
+	        }
+	    }
+	    catch(Exception $e)
+	    {
+		    echo $e->getMessage();
+	    }
     }
 
 	/**

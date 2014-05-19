@@ -1,24 +1,85 @@
 <?php
 
+/**
+ * Class HomeController
+ */
 class HomeController extends BaseController {
 
-	/*
-	|--------------------------------------------------------------------------
-	| Default Home Controller
-	|--------------------------------------------------------------------------
-	|
-	| You may wish to use controllers instead of, or in addition to, Closure
-	| based routes. That's great! Here is an example controller method to
-	| get you started. To route to this controller, just add the route:
-	|
-	|	Route::get('/', 'HomeController@showWelcome');
-	|
-	*/
+	/**
+	 * @var RanklistRepository
+	 */
+	public $ranklistRepository;
+    /**
+     * @var HeroRepository
+     */
+    public $heroRepository;
+    /**
+     * @var CareerRepository
+     */
+    public $careerRepository;
 
-	public function showWelcome()
+	/**
+	 * @param RanklistRepository $ranklistRepository
+	 * @param HeroRepository $heroRepository
+	 */
+	public function __construct(RanklistRepository $ranklistRepository, HeroRepository $heroRepository, CareerRepository $careerRepository)
 	{
-        Queue::artisan('migrate:refresh');
-        Queue::artisan('career:import', ['battletag' => 'aveley#2218', 'region' => 'eu']);
+		$this->ranklistRepository = $ranklistRepository;
+		$this->heroRepository = $heroRepository;
+		$this->careerRepository = $careerRepository;
+	}
+
+	public function showIndex()
+	{
+		return $this->showRanklist($this->ranklistRepository->getMainRanklist()->stat);
+	}
+
+	/**
+	 * @param null $ranklistStat
+	 * @return \Illuminate\View\View
+	 */
+	public function showRanklist($ranklistStat = null, $mode = 'softcore', $region = 'us')
+	{
+		$ranklist = $this->ranklistRepository->getRanklistByStat($ranklistStat);
+
+//		throw new Exception();
+
+		if($ranklist->ranklistCategory->type == Ranklist::HERO)
+			return $this->showHeroRanklist($ranklist, $mode, $region);
+		else
+			return $this->showCareerRanklist($ranklist);
+	}
+
+	private function showHeroRanklist(Ranklist $ranklist, $mode, $region)
+	{
+		$ranklistCategories = $this->ranklistRepository->getAllCategories();
+
+        if($mode == 'softcore')
+		    $ranks = $this->heroRepository->getSoftcoreHeroesTop($ranklist)->simplePaginate(20);
+        else if($mode == 'hardcore')
+		    $ranks = $this->heroRepository->getHardcoreHeroesTop($ranklist)->simplePaginate(20);
+        else
+            $ranks = $this->heroRepository->getHeroesTop($ranklist, null)->simplePaginate(20);
+
+
+		return View::make('home.hero')
+			->with('currentRanklist', $ranklist)
+			->with('ranklistCategories', $ranklistCategories)
+			->with('ranks', $ranks)
+            ->with('mode', $mode);
+	}
+
+	private function showCareerRanklist(Ranklist $ranklist)
+	{
+		$ranklistCategories = $this->ranklistRepository->getAllCategories();
+		$softcoreCareers = $this->careerRepository->getSoftcoreCareersTop($ranklist)->take(20)->get();
+		$hardcoreCareers = $this->careerRepository->getHardcoreCareersTop($ranklist)->take(20)->get();
+
+		return View::make('home.career')
+			->with('ranklist', $ranklist)
+			->with('ranklistCategories', $ranklistCategories)
+			->with('softcoreCareers', $softcoreCareers)
+			->with('hardcoreCareers', $hardcoreCareers);
 	}
 
 }

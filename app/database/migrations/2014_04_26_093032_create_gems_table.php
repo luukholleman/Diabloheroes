@@ -31,9 +31,13 @@ class CreateGemsTable extends Migration {
 
         Schema::table('item_gems', function($table){
             $table->foreign('item_id')->references('id')
-                ->on('items');
+                ->on('items')
+	            ->onUpdate('cascade')
+	            ->onDelete('cascade');
             $table->foreign('gem_id')->references('id')
-                ->on('gems');
+                ->on('gems')
+	            ->onUpdate('cascade')
+	            ->onDelete('cascade');
         });
 	}
 

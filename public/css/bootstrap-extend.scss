@@ -1,0 +1,48 @@
+.pagination {
+  li {
+    width: auto;
+    text-align: center;
+    a{
+      width: 42px;
+    }
+  }
+}
+
+.pagination-sm {
+  li {
+    width: auto;
+    text-align: center;
+    cursor: pointer;
+    a{
+      width: 39px;
+    }
+  }
+}
+
+.pager {
+  li {
+    cursor: pointer;
+  }
+}
+
+.container {
+  width:100%;
+  max-width: 1170px;
+}
+
+.nav-pills {
+  li {
+    a {
+      padding: 5px 10px;
+    }
+  }
+  li.disabled {
+    a{
+      cursor: default !important;
+    }
+  }
+}
+
+a {
+  text-decoration: none !important;
+}

@@ -39,7 +39,27 @@
  * @method static \Illuminate\Database\Query\Builder|\Item whereArmorMax($value)
  * @method static \Illuminate\Database\Query\Builder|\Item whereCreatedAt($value)
  * @method static \Illuminate\Database\Query\Builder|\Item whereUpdatedAt($value)
+ * @property-read \Illuminate\Database\Eloquent\Collection|\Item\Attribute\Raw[] $itemAttributeRaw
  */
 class Item extends \Eloquent {
     public $guarded = ['id'];
+
+	public function itemAttributeRaw()
+	{
+		return $this->hasMany('\Item\Attribute\Raw');
+	}
+
+	public function getStatValue(Item\Attribute $itemAttribute)
+	{
+		try
+		{
+			$itemAttributeRaw = $this->itemAttributeRaw()->whereItemAttributeId($itemAttribute->id)->firstOrFail();
+
+			return $itemAttributeRaw->max;
+		}
+		catch(\Illuminate\Database\Eloquent\ModelNotFoundException $e)
+		{
+
+		}
+	}
 } 
