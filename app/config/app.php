@@ -108,6 +108,7 @@ return array(
 		'Illuminate\Workbench\WorkbenchServiceProvider',
         'Barryvdh\LaravelIdeHelper\IdeHelperServiceProvider',
         'Way\Generators\GeneratorsServiceProvider',
+		'Barryvdh\Debugbar\ServiceProvider',
 	),
 
 	/*
@@ -175,5 +176,7 @@ return array(
 		'View'            => 'Illuminate\Support\Facades\View',
 
 	),
+
+    'cipher' => MCRYPT_RIJNDAEL_256
 
 );

@@ -78,23 +78,35 @@ class CreateSkillsTables extends Migration {
          */
         Schema::table('skill_actives', function($table){
             $table->foreign('skill_active_category_id')->references('id')
-                ->on('skill_active_categories');
+                ->on('skill_active_categories')
+	            ->onUpdate('cascade')
+	            ->onDelete('cascade');
         });
 
         Schema::table('hero_skill_actives', function($table){
             $table->foreign('skill_active_id')->references('id')
-                ->on('skill_actives');
+                ->on('skill_actives')
+	            ->onUpdate('cascade')
+	            ->onDelete('cascade');
             $table->foreign('hero_id')->references('id')
-                ->on('heroes');
+                ->on('heroes')
+	            ->onUpdate('cascade')
+	            ->onDelete('cascade');
             $table->foreign('rune_id')->references('id')
-                ->on('runes');
+                ->on('runes')
+	            ->onUpdate('cascade')
+	            ->onDelete('cascade');
         });
 
         Schema::table('hero_skill_passives', function($table){
             $table->foreign('skill_passive_id')->references('id')
-                ->on('skill_passives');
+                ->on('skill_passives')
+	            ->onUpdate('cascade')
+	            ->onDelete('cascade');
             $table->foreign('hero_id')->references('id')
-                ->on('heroes');
+                ->on('heroes')
+	            ->onUpdate('cascade')
+	            ->onDelete('cascade');
         });
 	}
 

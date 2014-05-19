@@ -54,10 +54,10 @@ return array(
 
 		'mysql' => array(
 			'driver'    => 'mysql',
-			'host'      => 'localhost',
+			'host'      => getenv('db_host'),
 			'database'  => 'diabloheroes',
-			'username'  => 'root',
-			'password'  => '',
+			'username'  => getenv('db_user'),
+			'password'  => getenv('db_pass'),
 			'charset'   => 'utf8',
 			'collation' => 'utf8_unicode_ci',
 			'prefix'    => '',

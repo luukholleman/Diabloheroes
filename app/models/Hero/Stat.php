@@ -17,9 +17,17 @@ namespace Hero;
  * @method static \Illuminate\Database\Query\Builder|\Hero\Stat whereValue($value)
  * @method static \Illuminate\Database\Query\Builder|\Hero\Stat whereCreatedAt($value)
  * @method static \Illuminate\Database\Query\Builder|\Hero\Stat whereUpdatedAt($value)
+ * @property-read \Stat $stat
  */
 class Stat extends \Eloquent {
     public $guarded = ['id'];
 
     public $table = 'hero_stats';
+
+	public function stat()
+	{
+		return $this->belongsTo('Stat');
+	}
+
+//	public function
 } 

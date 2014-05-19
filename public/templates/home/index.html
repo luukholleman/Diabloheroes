@@ -1,0 +1,60 @@
+<div class="home-index">
+    <div class="page-header">
+        <h1>
+            Top {{Ranklist.ranklist.name}}
+        </h1>
+    </div>
+    <div class="row">
+        <div class="col-xs-12 col-md-2">
+            <ul class="nav nav-pills nav-stacked">
+                <li ng-repeat="ranklist in ranklists track by $index">
+                    <a href="#" ng-click="changeRanklist($index)">{{ranklist.name}}</a>
+                </li>
+            </ul>
+        </div>
+        <div class="col-xs-12 col-sm-6 col-md-5" ng-controller="HomeHeroListController" ng-init="hardcore = 0">
+            <pager total-items="totalItems" page="currentPage" items-per-page="itemsPerPage"></pager>
+            <table class="table">
+                <thead>
+                <tr>
+                    <th colspan="3">
+                            <span>
+                                Page: {{ currentPage }}
+                            </span>
+                            <span class="pull-right">
+                                Complete
+                            </span>
+                    </th>
+                </tr>
+                </thead>
+                <tr ng-repeat="hero in heroes track by $index" class="fade-in">
+                    <td>#{{$index + 1}}</td>
+                    <td><a href="{{hero.detail_uri}}" class="{{hero.klass}}">{{hero.name}}</a></td>
+                    <td>{{hero.career_region.career.battletag}}</td>
+                </tr>
+            </table>
+        </div>
+        <div class="col-xs-12 col-sm-6 col-md-5" ng-controller="HomeHeroListController" ng-init="hardcore = 1">
+            <pager total-items="totalItems" page="currentPage" items-per-page="itemsPerPage"></pager>
+            <table class="table">
+                <thead>
+                    <tr>
+                        <th colspan="3">
+                            <span>
+                                Page: {{ currentPage }}
+                            </span>
+                            <span class="pull-right">
+                                Complete
+                            </span>
+                        </th>
+                    </tr>
+                </thead>
+                <tr ng-repeat="hero in heroes track by $index" class="fade-in">
+                    <td>#{{$index + 1}}</td>
+                    <td><a href="{{hero.detail_uri}}" class="{{hero.klass}}">{{hero.name}}</a></td>
+                    <td>{{hero.career_region.career.battletag}}</td>
+                </tr>
+            </table>
+        </div>
+    </div>
+</div>

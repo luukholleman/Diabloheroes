@@ -1,0 +1,39 @@
+body {
+  padding-top: 30px;
+  overflow-y: scroll;
+}
+
+a {
+  color: #FF8B26;
+}
+
+.home-index {
+  .pager {
+    margin: 5px 0;
+  }
+
+  table {
+    td:nth-child(1){
+      width: 15px;
+    }
+
+    td:nth-child(3){
+      width: 150px;
+    }
+  }
+
+  .fade-in.ng-enter,
+  .fade-in.ng-leave {
+    -webkit-transition:0.2s linear all;
+    transition:0.2s linear all;
+  }
+
+  .fade-in.ng-enter,
+  .fade-in.ng-leave.ng-leave-active {
+    opacity:0.1;
+  }
+  .fade-in.ng-leave,
+  .fade-in.ng-enter.ng-enter-active {
+    opacity:1;
+  }
+}

@@ -14,8 +14,8 @@ namespace Item;
  *
  * @property integer $id
  * @property string $name
- * @method static \Illuminate\Database\Query\Builder|\Item\Attribute whereId($value) 
- * @method static \Illuminate\Database\Query\Builder|\Item\Attribute whereName($value) 
+ * @method static \Illuminate\Database\Query\Builder|\Item\Attribute whereId($value)
+ * @method static \Illuminate\Database\Query\Builder|\Item\Attribute whereName($value)
  */
 class Attribute extends \Eloquent {
     public $guarded = ['id'];

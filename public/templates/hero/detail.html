@@ -1,0 +1,24 @@
+<div class="page-header" ng-show="hero">
+    <h1>
+        {{hero.name}}
+        <small>
+            {{hero.career_region.career.battletag}} {{hero.career_region.region}}
+        </small>
+    </h1>
+    <h2>
+        {{hero.level}}
+        <small>
+            ({{hero.career_region.paragon_level}}) Wizard
+        </small>
+    </h2>
+</div>
+<div class="row">
+    <div class="col-md-2">
+        <ul class="nav nav-pills nav-stacked">
+            <li class="disabled"><a href="#">{{hero.career_region.career.battletag}}</a></li>
+            <li><a href="{{hero.profile_uri}}">Profile</a></li>
+            <li><a href="{{hero.rank_uri}}">Ranks</a></li>
+        </ul>
+    </div>
+
+</div>
