@@ -54,7 +54,7 @@ class ImportTest extends Command {
 
 		foreach(range(1, 100) as $num){
 			$battletag = $this->battletags[$num];
-			
+
             Queue::artisan('career:import', ['battletag' => $battletag['name']]);
 //			$this->call('career:import', ['battletag' => $battletag['name']]);
 		}
