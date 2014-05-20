@@ -5,8 +5,7 @@
 	"license": "MIT",
 	"require": {
         "laravel/framework": "4.2.*",
-        "aveley/artisan-queue": "dev-master",
-        "diabloheroes/diablo3-api": "dev-master"
+        "aveley/artisan-queue": "dev-master"
 	},
     "require-dev": {
         "laracasts/testdummy": "1.*",
