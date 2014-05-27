@@ -42,7 +42,7 @@ class RanklistSeeder extends Seeder{
 			]);
 
 		$core = \Ranklist\Category::firstOrCreate([
-			'name' => 'Core',
+			'name' => 'Main',
             'type' => 'hero',
 			'order' => 2
 		]);
