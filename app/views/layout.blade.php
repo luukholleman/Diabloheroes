@@ -8,7 +8,9 @@
 		{{ HTML::style('css/bootstrap-extend.css') }}
 		{{ HTML::style('css/style.css') }}
 		{{ HTML::style('css/colors.css') }}
-		{{ HTML::style('css/lib/angular/loader-bar.css') }}
+	    {{ HTML::style('css/lib/fontawesome/font-awesome.min.css') }}
+
+	    @yield('css')
     </head>
     <body>
 	    <div class="container">
@@ -21,7 +23,10 @@
 		    @yield('content')
 	    </div>
 
+	    {{ HTML::script('js/lib/jquery/jquery-2.1.0.js') }}
         {{ HTML::script('js/debug.js') }}
+
+	    @yield('js')
         {{-- HTML::script('http://cssrefresh.frebsite.nl/js/cssrefresh.js') --}}
     </body>
 </html>
