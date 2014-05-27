@@ -6,6 +6,7 @@
 	"require": {
         "laravel/framework": "4.1.*",
         "aveley/artisan-queue": "dev-master",
+        "diabloheroes/diablo3-api": "dev-master",
         "jenssegers/agent": "*"
 	},
     "require-dev": {
