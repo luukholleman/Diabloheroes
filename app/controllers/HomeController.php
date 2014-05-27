@@ -52,16 +52,16 @@ class HomeController extends BaseController {
 		$ranklist = $this->ranklistRepository->getRanklistByStat($ranklistStat);
 
 		if($ranklist->ranklistCategory->type == Ranklist::HERO)
-			return $this->showHeroRanklist($ranklist, $mode, $region);
+			return $this->showHeroRanklist($ranklist, new Mode($mode), $region);
 		else
 			return $this->showCareerRanklist($ranklist, $mode, $region);
 	}
 
-	private function showHeroRanklist(Ranklist $ranklist, $mode, $region)
+	private function showHeroRanklist(Ranklist $ranklist, Mode $mode, $region)
 	{
 		$ranklistCategories = $this->ranklistRepository->getAllCategories();
 
-		$ranks = $this->rankRepository->getTop(RankRepository::$MODES[$mode], $ranklist)->paginate(value(Config::get('ua.pagination')));
+		$ranks = $this->rankRepository->getTop($mode->bool(), $ranklist)->paginate(value(Config::get('ua.pagination')));
 
 		return View::make('home.hero')
 			->with('currentRanklist', $ranklist)
