@@ -9,26 +9,6 @@ class HeroRepository implements RepositoryInterface  {
 		$this->hero = $hero;
 	}
 
-	public function getSoftcoreHeroesTop(Ranklist $ranklist)
-	{
-		return $this->getHeroesTop($ranklist, false);
-	}
-
-	public function getHardcoreHeroesTop(Ranklist $ranklist)
-	{
-		return $this->getHeroesTop($ranklist, true);
-	}
-
-	public function getHeroesTop(Ranklist $ranklist, $hardcore)
-	{
-		$ranks = \Ranklist\Rank::whereRanklistId($ranklist->id);
-
-        if($hardcore !== null)
-			$ranks = $ranks->whereHardcore($hardcore);
-
-        return $ranks->orderBy('value', 'desc');
-	}
-
 	public function findOrFail($id)
 	{
 		return $this->hero->findOrFail($id);
