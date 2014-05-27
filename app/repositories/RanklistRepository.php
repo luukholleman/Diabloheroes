@@ -3,7 +3,7 @@
 /**
  * Class RanklistRepository
  */
-class RanklistRepository
+class RanklistRepository implements RepositoryInterface
 {
 	/**
 	 * @var Ranklist\Category
