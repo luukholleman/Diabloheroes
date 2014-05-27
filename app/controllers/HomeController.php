@@ -55,18 +55,18 @@ class HomeController extends BaseController {
 		$ranklistCategories = $this->ranklistRepository->getAllCategories();
 
         if($mode == 'softcore')
-		    $ranks = $this->heroRepository->getSoftcoreHeroesTop($ranklist)->simplePaginate(20);
+		    $ranks = $this->heroRepository->getSoftcoreHeroesTop($ranklist)->paginate(value(Config::get('ua.pagination')));
         else if($mode == 'hardcore')
-		    $ranks = $this->heroRepository->getHardcoreHeroesTop($ranklist)->simplePaginate(20);
+		    $ranks = $this->heroRepository->getHardcoreHeroesTop($ranklist)->paginate(value(Config::get('ua.pagination')));
         else
-            $ranks = $this->heroRepository->getHeroesTop($ranklist, null)->simplePaginate(20);
-
+            $ranks = $this->heroRepository->getHeroesTop($ranklist, null)->paginate(value(Config::get('ua.pagination')));
 
 		return View::make('home.hero')
 			->with('currentRanklist', $ranklist)
 			->with('ranklistCategories', $ranklistCategories)
 			->with('ranks', $ranks)
-            ->with('mode', $mode);
+            ->with('mode', $mode)
+			->with('rankMultiplier', 1 + 20 * ($ranks->getCurrentPage() - 1));
 	}
 
 	private function showCareerRanklist(Ranklist $ranklist)
