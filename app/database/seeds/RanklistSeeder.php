@@ -9,17 +9,16 @@ class RanklistSeeder extends Seeder{
 			'order' => 0
 		]);
 
+			Ranklist::firstOrCreate([
+				'ranklist_category_id' => $career->id,
+				'name' => 'Paragon',
+				'stat' => 'paragon',
+			]);
+
             Ranklist::firstOrCreate([
                 'ranklist_category_id' => $career->id,
                 'name' => 'Elite kills',
                 'stat' => 'eliteKills'
-            ]);
-
-
-            Ranklist::firstOrCreate([
-                'ranklist_category_id' => $career->id,
-                'name' => 'Paragon',
-                'stat' => 'paragon',
             ]);
 
 
