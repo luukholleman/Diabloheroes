@@ -28,6 +28,8 @@ class Mode {
 
 	public function __construct($mode)
 	{
+		$mode = strtolower($mode);
+
 		if(in_array($mode, $this->validSoftcore, true)){
 			$this->mode = self::SOFTCORE;
 		}
