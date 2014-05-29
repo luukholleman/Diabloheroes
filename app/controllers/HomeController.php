@@ -6,18 +6,6 @@
 class HomeController extends BaseController {
 
 	/**
-	 * @var RanklistRepository
-	 */
-	public $ranklistRepository;
-    /**
-     * @var HeroRepository
-     */
-    public $heroRepository;
-	/**
-	 * @var CareerRepository
-	 */
-	public $careerRepository;
-	/**
 	 * @var RankRepository
 	 */
 	public $rankRepository;
@@ -25,14 +13,10 @@ class HomeController extends BaseController {
 	/**
 	 * @param RanklistRepository $ranklistRepository
 	 * @param RankRepository $rankRepository
-	 * @param HeroRepository $heroRepository
-	 * @param CareerRepository $careerRepository
 	 */
-	public function __construct(RanklistRepository $ranklistRepository, RankRepository $rankRepository, HeroRepository $heroRepository, CareerRepository $careerRepository)
+	public function __construct(RanklistRepository $ranklistRepository, RankRepository $rankRepository)
 	{
 		$this->ranklistRepository = $ranklistRepository;
-		$this->heroRepository = $heroRepository;
-		$this->careerRepository = $careerRepository;
 		$this->rankRepository = $rankRepository;
 	}
 
@@ -54,7 +38,7 @@ class HomeController extends BaseController {
 		if($ranklist->ranklistCategory->type == Ranklist::HERO)
 			return $this->showHeroRanklist($ranklist, new Mode($mode), $region);
 		else
-			return $this->showCareerRanklist($ranklist, $mode, $region);
+			return $this->showCareerRanklist($ranklist, new Mode($mode), $region);
 	}
 
 	private function showHeroRanklist(Ranklist $ranklist, Mode $mode, $region)
@@ -71,11 +55,11 @@ class HomeController extends BaseController {
 			->with('rankMultiplier', 1 + 20 * ($ranks->getCurrentPage() - 1));
 	}
 
-	private function showCareerRanklist(Ranklist $ranklist, $mode, $region)
+	private function showCareerRanklist(Ranklist $ranklist, Mode $mode, $region)
 	{
 		$ranklistCategories = $this->ranklistRepository->getAllCategories();
 
-		$ranks = $this->rankRepository->getTop(RankRepository::$MODES[$mode], $ranklist)->paginate(value(Config::get('ua.pagination')));
+		$ranks = $this->rankRepository->getTop($mode->bool(), $ranklist)->paginate(value(Config::get('ua.pagination')));
 
 		return View::make('home.career')
 			->with('currentRanklist', $ranklist)
