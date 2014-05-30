@@ -386,6 +386,7 @@ class ImportTest extends Command {
 		'name' => 'Wolfbain#1729',
 	),
 );
+	/**
 //
 //
 //	public $battletags = array(
@@ -60810,6 +60811,6 @@ class ImportTest extends Command {
 //			'name' => 'Zagara#1329',
 //		),
 //	);
-
+**/
 
 }
