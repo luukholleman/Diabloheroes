@@ -45,7 +45,7 @@ class HomeController extends BaseController {
 	{
 		$ranklistCategories = $this->ranklistRepository->getAllCategories();
 
-		$ranks = $this->rankRepository->getTop($mode->bool(), $ranklist)->paginate(value(Config::get('ua.pagination')));
+		$ranks = $this->rankRepository->getTop($mode->bool(), $ranklist)->paginate(20);
 
 		return View::make('home.hero')
 			->with('currentRanklist', $ranklist)
@@ -59,7 +59,7 @@ class HomeController extends BaseController {
 	{
 		$ranklistCategories = $this->ranklistRepository->getAllCategories();
 
-		$ranks = $this->rankRepository->getTop($mode->bool(), $ranklist)->paginate(value(Config::get('ua.pagination')));
+		$ranks = $this->rankRepository->getTop($mode->bool(), $ranklist)->paginate(20);
 
 		return View::make('home.career')
 			->with('currentRanklist', $ranklist)

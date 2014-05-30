@@ -60,4 +60,19 @@ class Mode {
 		if($this->mode == self::BOTH)
 			return 'Both';
 	}
+
+	public function isSoftcore()
+	{
+		return $this->bool() === false;
+	}
+
+	public function isHardcore()
+	{
+		return $this->bool() === true;
+	}
+
+	public function isBoth()
+	{
+		return $this->bool() === null;
+	}
 } 

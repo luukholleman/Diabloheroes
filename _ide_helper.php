@@ -141,7 +141,7 @@ namespace {
 		 }
 
 		/**
-		 * Get the registered service provider instnace if it exists.
+		 * Get the registered service provider instance if it exists.
 		 *
 		 * @param \Illuminate\Support\ServiceProvider|string  $provider
 		 * @return \Illuminate\Support\ServiceProvider|null
@@ -176,7 +176,7 @@ namespace {
 		 }
 
 		/**
-		 * Register a deffered provider and service.
+		 * Register a deferred provider and service.
 		 *
 		 * @param string  $provider
 		 * @param string  $service
@@ -1141,7 +1141,7 @@ namespace {
 		 *
 		 * @param InputInterface  $input  An Input instance
 		 * @param OutputInterface $output An Output instance
-		 * @return int     0 if everything went fine, or an error code
+		 * @return int 0 if everything went fine, or an error code
 		 * @throws \Exception When doRun returns Exception
 		 * @api 
 		 * @static 
@@ -1156,7 +1156,7 @@ namespace {
 		 *
 		 * @param InputInterface  $input  An Input instance
 		 * @param OutputInterface $output An Output instance
-		 * @return int     0 if everything went fine, or an error code
+		 * @return int 0 if everything went fine, or an error code
 		 * @static 
 		 */
 		 public static function doRun($input, $output){
@@ -1225,7 +1225,7 @@ namespace {
 		/**
 		 * Sets whether to catch exceptions or not during commands execution.
 		 *
-		 * @param bool    $boolean Whether to catch exceptions or not during commands execution
+		 * @param bool $boolean Whether to catch exceptions or not during commands execution
 		 * @api 
 		 * @static 
 		 */
@@ -1337,7 +1337,7 @@ namespace {
 		 * Returns true if the command exists, false otherwise.
 		 *
 		 * @param string $name The command name or alias
-		 * @return bool    true if the command exists, false otherwise
+		 * @return bool true if the command exists, false otherwise
 		 * @api 
 		 * @static 
 		 */
@@ -1419,8 +1419,8 @@ namespace {
 		/**
 		 * Returns a text representation of the Application.
 		 *
-		 * @param string  $namespace An optional namespace name
-		 * @param bool    $raw       Whether to return raw command list
+		 * @param string $namespace An optional namespace name
+		 * @param bool   $raw       Whether to return raw command list
 		 * @return string A string representing the Application
 		 * @deprecated Deprecated since version 2.3, to be removed in 3.0.
 		 * @static 
@@ -1433,8 +1433,8 @@ namespace {
 		/**
 		 * Returns an XML representation of the Application.
 		 *
-		 * @param string  $namespace An optional namespace name
-		 * @param bool    $asDom     Whether to return a DOM or an XML string
+		 * @param string $namespace An optional namespace name
+		 * @param bool   $asDom     Whether to return a DOM or an XML string
 		 * @return string|\DOMDocument An XML string representing the Application
 		 * @deprecated Deprecated since version 2.3, to be removed in 3.0.
 		 * @static 
@@ -2444,26 +2444,24 @@ namespace {
 		 * @param string  $key
 		 * @param mixed   $value
 		 * @return void
-		 * @throws \LogicException
 		 * @static 
 		 */
 		 public static function increment($key, $value = 1){
-			//Method inherited from \Illuminate\Cache\FileStore
-			 \Illuminate\Cache\FileStore::increment($key, $value);
+			//Method inherited from \Illuminate\Cache\RedisStore
+			 \Illuminate\Cache\RedisStore::increment($key, $value);
 		 }
 
 		/**
-		 * Decrement the value of an item in the cache.
+		 * Increment the value of an item in the cache.
 		 *
 		 * @param string  $key
 		 * @param mixed   $value
 		 * @return void
-		 * @throws \LogicException
 		 * @static 
 		 */
 		 public static function decrement($key, $value = 1){
-			//Method inherited from \Illuminate\Cache\FileStore
-			 \Illuminate\Cache\FileStore::decrement($key, $value);
+			//Method inherited from \Illuminate\Cache\RedisStore
+			 \Illuminate\Cache\RedisStore::decrement($key, $value);
 		 }
 
 		/**
@@ -2475,8 +2473,8 @@ namespace {
 		 * @static 
 		 */
 		 public static function forever($key, $value){
-			//Method inherited from \Illuminate\Cache\FileStore
-			 \Illuminate\Cache\FileStore::forever($key, $value);
+			//Method inherited from \Illuminate\Cache\RedisStore
+			 \Illuminate\Cache\RedisStore::forever($key, $value);
 		 }
 
 		/**
@@ -2487,8 +2485,8 @@ namespace {
 		 * @static 
 		 */
 		 public static function forget($key){
-			//Method inherited from \Illuminate\Cache\FileStore
-			 \Illuminate\Cache\FileStore::forget($key);
+			//Method inherited from \Illuminate\Cache\RedisStore
+			 \Illuminate\Cache\RedisStore::forget($key);
 		 }
 
 		/**
@@ -2498,30 +2496,66 @@ namespace {
 		 * @static 
 		 */
 		 public static function flush(){
-			//Method inherited from \Illuminate\Cache\FileStore
-			 \Illuminate\Cache\FileStore::flush();
+			//Method inherited from \Illuminate\Cache\RedisStore
+			 \Illuminate\Cache\RedisStore::flush();
 		 }
 
 		/**
-		 * Get the Filesystem instance.
+		 * Begin executing a new tags operation.
 		 *
-		 * @return \Illuminate\Filesystem\Filesystem
+		 * @param array|dynamic  $names
+		 * @return \Illuminate\Cache\RedisTaggedCache
 		 * @static 
 		 */
-		 public static function getFilesystem(){
-			//Method inherited from \Illuminate\Cache\FileStore
-			return \Illuminate\Cache\FileStore::getFilesystem();
+		 public static function tags($names){
+			//Method inherited from \Illuminate\Cache\RedisStore
+			return \Illuminate\Cache\RedisStore::tags($names);
 		 }
 
 		/**
-		 * Get the working directory of the cache.
+		 * Get the Redis connection instance.
 		 *
-		 * @return string
+		 * @return \Predis\Connection\SingleConnectionInterface
 		 * @static 
 		 */
-		 public static function getDirectory(){
-			//Method inherited from \Illuminate\Cache\FileStore
-			return \Illuminate\Cache\FileStore::getDirectory();
+		 public static function connection(){
+			//Method inherited from \Illuminate\Cache\RedisStore
+			return \Illuminate\Cache\RedisStore::connection();
+		 }
+
+		/**
+		 * Set the connection name to be used.
+		 *
+		 * @param string  $connection
+		 * @return void
+		 * @static 
+		 */
+		 public static function setConnection($connection){
+			//Method inherited from \Illuminate\Cache\RedisStore
+			 \Illuminate\Cache\RedisStore::setConnection($connection);
+		 }
+
+		/**
+		 * Get the Redis database instance.
+		 *
+		 * @return \Illuminate\Redis\Database
+		 * @static 
+		 */
+		 public static function getRedis(){
+			//Method inherited from \Illuminate\Cache\RedisStore
+			return \Illuminate\Cache\RedisStore::getRedis();
+		 }
+
+		/**
+		 * Begin executing a new tags operation.
+		 *
+		 * @param string  $name
+		 * @return \Illuminate\Cache\TaggedCache
+		 * @static 
+		 */
+		 public static function section($name){
+			//Method inherited from \Illuminate\Cache\TaggableStore
+			return \Illuminate\Cache\RedisStore::section($name);
 		 }
 
 	}
@@ -3081,684 +3115,6 @@ namespace {
 		 public static function __call($method, $parameters){
 			//Method inherited from \Illuminate\Database\DatabaseManager
 			return \Illuminate\Database\DatabaseManager::__call($method, $parameters);
-		 }
-
-		/**
-		 * Get a schema builder instance for the connection.
-		 *
-		 * @return \Illuminate\Database\Schema\MySqlBuilder
-		 * @static 
-		 */
-		 public static function getSchemaBuilder(){
-			//Method inherited from \Illuminate\Database\MySqlConnection
-			return \Illuminate\Database\MySqlConnection::getSchemaBuilder();
-		 }
-
-		/**
-		 * Set the query grammar to the default implementation.
-		 *
-		 * @return void
-		 * @static 
-		 */
-		 public static function useDefaultQueryGrammar(){
-			//Method inherited from \Illuminate\Database\Connection
-			 \Illuminate\Database\MySqlConnection::useDefaultQueryGrammar();
-		 }
-
-		/**
-		 * Set the schema grammar to the default implementation.
-		 *
-		 * @return void
-		 * @static 
-		 */
-		 public static function useDefaultSchemaGrammar(){
-			//Method inherited from \Illuminate\Database\Connection
-			 \Illuminate\Database\MySqlConnection::useDefaultSchemaGrammar();
-		 }
-
-		/**
-		 * Set the query post processor to the default implementation.
-		 *
-		 * @return void
-		 * @static 
-		 */
-		 public static function useDefaultPostProcessor(){
-			//Method inherited from \Illuminate\Database\Connection
-			 \Illuminate\Database\MySqlConnection::useDefaultPostProcessor();
-		 }
-
-		/**
-		 * Begin a fluent query against a database table.
-		 *
-		 * @param string  $table
-		 * @return \Illuminate\Database\Query\Builder
-		 * @static 
-		 */
-		 public static function table($table){
-			//Method inherited from \Illuminate\Database\Connection
-			return \Illuminate\Database\MySqlConnection::table($table);
-		 }
-
-		/**
-		 * Get a new raw query expression.
-		 *
-		 * @param mixed  $value
-		 * @return \Illuminate\Database\Query\Expression
-		 * @static 
-		 */
-		 public static function raw($value){
-			//Method inherited from \Illuminate\Database\Connection
-			return \Illuminate\Database\MySqlConnection::raw($value);
-		 }
-
-		/**
-		 * Run a select statement and return a single result.
-		 *
-		 * @param string  $query
-		 * @param array   $bindings
-		 * @return mixed
-		 * @static 
-		 */
-		 public static function selectOne($query, $bindings = array()){
-			//Method inherited from \Illuminate\Database\Connection
-			return \Illuminate\Database\MySqlConnection::selectOne($query, $bindings);
-		 }
-
-		/**
-		 * Run a select statement against the database.
-		 *
-		 * @param string  $query
-		 * @param array   $bindings
-		 * @return array
-		 * @static 
-		 */
-		 public static function select($query, $bindings = array()){
-			//Method inherited from \Illuminate\Database\Connection
-			return \Illuminate\Database\MySqlConnection::select($query, $bindings);
-		 }
-
-		/**
-		 * Run an insert statement against the database.
-		 *
-		 * @param string  $query
-		 * @param array   $bindings
-		 * @return bool
-		 * @static 
-		 */
-		 public static function insert($query, $bindings = array()){
-			//Method inherited from \Illuminate\Database\Connection
-			return \Illuminate\Database\MySqlConnection::insert($query, $bindings);
-		 }
-
-		/**
-		 * Run an update statement against the database.
-		 *
-		 * @param string  $query
-		 * @param array   $bindings
-		 * @return int
-		 * @static 
-		 */
-		 public static function update($query, $bindings = array()){
-			//Method inherited from \Illuminate\Database\Connection
-			return \Illuminate\Database\MySqlConnection::update($query, $bindings);
-		 }
-
-		/**
-		 * Run a delete statement against the database.
-		 *
-		 * @param string  $query
-		 * @param array   $bindings
-		 * @return int
-		 * @static 
-		 */
-		 public static function delete($query, $bindings = array()){
-			//Method inherited from \Illuminate\Database\Connection
-			return \Illuminate\Database\MySqlConnection::delete($query, $bindings);
-		 }
-
-		/**
-		 * Execute an SQL statement and return the boolean result.
-		 *
-		 * @param string  $query
-		 * @param array   $bindings
-		 * @return bool
-		 * @static 
-		 */
-		 public static function statement($query, $bindings = array()){
-			//Method inherited from \Illuminate\Database\Connection
-			return \Illuminate\Database\MySqlConnection::statement($query, $bindings);
-		 }
-
-		/**
-		 * Run an SQL statement and get the number of rows affected.
-		 *
-		 * @param string  $query
-		 * @param array   $bindings
-		 * @return int
-		 * @static 
-		 */
-		 public static function affectingStatement($query, $bindings = array()){
-			//Method inherited from \Illuminate\Database\Connection
-			return \Illuminate\Database\MySqlConnection::affectingStatement($query, $bindings);
-		 }
-
-		/**
-		 * Run a raw, unprepared query against the PDO connection.
-		 *
-		 * @param string  $query
-		 * @return bool
-		 * @static 
-		 */
-		 public static function unprepared($query){
-			//Method inherited from \Illuminate\Database\Connection
-			return \Illuminate\Database\MySqlConnection::unprepared($query);
-		 }
-
-		/**
-		 * Prepare the query bindings for execution.
-		 *
-		 * @param array  $bindings
-		 * @return array
-		 * @static 
-		 */
-		 public static function prepareBindings($bindings){
-			//Method inherited from \Illuminate\Database\Connection
-			return \Illuminate\Database\MySqlConnection::prepareBindings($bindings);
-		 }
-
-		/**
-		 * Execute a Closure within a transaction.
-		 *
-		 * @param Closure  $callback
-		 * @return mixed
-		 * @throws \Exception
-		 * @static 
-		 */
-		 public static function transaction($callback){
-			//Method inherited from \Illuminate\Database\Connection
-			return \Illuminate\Database\MySqlConnection::transaction($callback);
-		 }
-
-		/**
-		 * Start a new database transaction.
-		 *
-		 * @return void
-		 * @static 
-		 */
-		 public static function beginTransaction(){
-			//Method inherited from \Illuminate\Database\Connection
-			 \Illuminate\Database\MySqlConnection::beginTransaction();
-		 }
-
-		/**
-		 * Commit the active database transaction.
-		 *
-		 * @return void
-		 * @static 
-		 */
-		 public static function commit(){
-			//Method inherited from \Illuminate\Database\Connection
-			 \Illuminate\Database\MySqlConnection::commit();
-		 }
-
-		/**
-		 * Rollback the active database transaction.
-		 *
-		 * @return void
-		 * @static 
-		 */
-		 public static function rollBack(){
-			//Method inherited from \Illuminate\Database\Connection
-			 \Illuminate\Database\MySqlConnection::rollBack();
-		 }
-
-		/**
-		 * Get the number of active transactions.
-		 *
-		 * @return int
-		 * @static 
-		 */
-		 public static function transactionLevel(){
-			//Method inherited from \Illuminate\Database\Connection
-			return \Illuminate\Database\MySqlConnection::transactionLevel();
-		 }
-
-		/**
-		 * Execute the given callback in "dry run" mode.
-		 *
-		 * @param Closure  $callback
-		 * @return array
-		 * @static 
-		 */
-		 public static function pretend($callback){
-			//Method inherited from \Illuminate\Database\Connection
-			return \Illuminate\Database\MySqlConnection::pretend($callback);
-		 }
-
-		/**
-		 * Log a query in the connection's query log.
-		 *
-		 * @param string  $query
-		 * @param array   $bindings
-		 * @param $time
-		 * @return void
-		 * @static 
-		 */
-		 public static function logQuery($query, $bindings, $time = null){
-			//Method inherited from \Illuminate\Database\Connection
-			 \Illuminate\Database\MySqlConnection::logQuery($query, $bindings, $time);
-		 }
-
-		/**
-		 * Register a database query listener with the connection.
-		 *
-		 * @param Closure  $callback
-		 * @return void
-		 * @static 
-		 */
-		 public static function listen($callback){
-			//Method inherited from \Illuminate\Database\Connection
-			 \Illuminate\Database\MySqlConnection::listen($callback);
-		 }
-
-		/**
-		 * Get a Doctrine Schema Column instance.
-		 *
-		 * @param string  $table
-		 * @param string  $column
-		 * @return \Doctrine\DBAL\Schema\Column
-		 * @static 
-		 */
-		 public static function getDoctrineColumn($table, $column){
-			//Method inherited from \Illuminate\Database\Connection
-			return \Illuminate\Database\MySqlConnection::getDoctrineColumn($table, $column);
-		 }
-
-		/**
-		 * Get the Doctrine DBAL schema manager for the connection.
-		 *
-		 * @return \Doctrine\DBAL\Schema\AbstractSchemaManager
-		 * @static 
-		 */
-		 public static function getDoctrineSchemaManager(){
-			//Method inherited from \Illuminate\Database\Connection
-			return \Illuminate\Database\MySqlConnection::getDoctrineSchemaManager();
-		 }
-
-		/**
-		 * Get the Doctrine DBAL database connection instance.
-		 *
-		 * @return \Doctrine\DBAL\Connection
-		 * @static 
-		 */
-		 public static function getDoctrineConnection(){
-			//Method inherited from \Illuminate\Database\Connection
-			return \Illuminate\Database\MySqlConnection::getDoctrineConnection();
-		 }
-
-		/**
-		 * Get the current PDO connection.
-		 *
-		 * @return PDO
-		 * @static 
-		 */
-		 public static function getPdo(){
-			//Method inherited from \Illuminate\Database\Connection
-			return \Illuminate\Database\MySqlConnection::getPdo();
-		 }
-
-		/**
-		 * Get the current PDO connection used for reading.
-		 *
-		 * @return PDO
-		 * @static 
-		 */
-		 public static function getReadPdo(){
-			//Method inherited from \Illuminate\Database\Connection
-			return \Illuminate\Database\MySqlConnection::getReadPdo();
-		 }
-
-		/**
-		 * Set the PDO connection.
-		 *
-		 * @param PDO  $pdo
-		 * @return \Illuminate\Database\Connection
-		 * @static 
-		 */
-		 public static function setPdo($pdo){
-			//Method inherited from \Illuminate\Database\Connection
-			return \Illuminate\Database\MySqlConnection::setPdo($pdo);
-		 }
-
-		/**
-		 * Set the PDO connection used for reading.
-		 *
-		 * @param PDO  $pdo
-		 * @return \Illuminate\Database\Connection
-		 * @static 
-		 */
-		 public static function setReadPdo($pdo){
-			//Method inherited from \Illuminate\Database\Connection
-			return \Illuminate\Database\MySqlConnection::setReadPdo($pdo);
-		 }
-
-		/**
-		 * Get the database connection name.
-		 *
-		 * @return string|null
-		 * @static 
-		 */
-		 public static function getName(){
-			//Method inherited from \Illuminate\Database\Connection
-			return \Illuminate\Database\MySqlConnection::getName();
-		 }
-
-		/**
-		 * Get an option from the configuration options.
-		 *
-		 * @param string  $option
-		 * @return mixed
-		 * @static 
-		 */
-		 public static function getConfig($option){
-			//Method inherited from \Illuminate\Database\Connection
-			return \Illuminate\Database\MySqlConnection::getConfig($option);
-		 }
-
-		/**
-		 * Get the PDO driver name.
-		 *
-		 * @return string
-		 * @static 
-		 */
-		 public static function getDriverName(){
-			//Method inherited from \Illuminate\Database\Connection
-			return \Illuminate\Database\MySqlConnection::getDriverName();
-		 }
-
-		/**
-		 * Get the query grammar used by the connection.
-		 *
-		 * @return \Illuminate\Database\Query\Grammars\Grammar
-		 * @static 
-		 */
-		 public static function getQueryGrammar(){
-			//Method inherited from \Illuminate\Database\Connection
-			return \Illuminate\Database\MySqlConnection::getQueryGrammar();
-		 }
-
-		/**
-		 * Set the query grammar used by the connection.
-		 *
-		 * @param \Illuminate\Database\Query\Grammars\Grammar
-		 * @return void
-		 * @static 
-		 */
-		 public static function setQueryGrammar($grammar){
-			//Method inherited from \Illuminate\Database\Connection
-			 \Illuminate\Database\MySqlConnection::setQueryGrammar($grammar);
-		 }
-
-		/**
-		 * Get the schema grammar used by the connection.
-		 *
-		 * @return \Illuminate\Database\Query\Grammars\Grammar
-		 * @static 
-		 */
-		 public static function getSchemaGrammar(){
-			//Method inherited from \Illuminate\Database\Connection
-			return \Illuminate\Database\MySqlConnection::getSchemaGrammar();
-		 }
-
-		/**
-		 * Set the schema grammar used by the connection.
-		 *
-		 * @param \Illuminate\Database\Schema\Grammars\Grammar
-		 * @return void
-		 * @static 
-		 */
-		 public static function setSchemaGrammar($grammar){
-			//Method inherited from \Illuminate\Database\Connection
-			 \Illuminate\Database\MySqlConnection::setSchemaGrammar($grammar);
-		 }
-
-		/**
-		 * Get the query post processor used by the connection.
-		 *
-		 * @return \Illuminate\Database\Query\Processors\Processor
-		 * @static 
-		 */
-		 public static function getPostProcessor(){
-			//Method inherited from \Illuminate\Database\Connection
-			return \Illuminate\Database\MySqlConnection::getPostProcessor();
-		 }
-
-		/**
-		 * Set the query post processor used by the connection.
-		 *
-		 * @param \Illuminate\Database\Query\Processors\Processor
-		 * @return void
-		 * @static 
-		 */
-		 public static function setPostProcessor($processor){
-			//Method inherited from \Illuminate\Database\Connection
-			 \Illuminate\Database\MySqlConnection::setPostProcessor($processor);
-		 }
-
-		/**
-		 * Get the event dispatcher used by the connection.
-		 *
-		 * @return \Illuminate\Events\Dispatcher
-		 * @static 
-		 */
-		 public static function getEventDispatcher(){
-			//Method inherited from \Illuminate\Database\Connection
-			return \Illuminate\Database\MySqlConnection::getEventDispatcher();
-		 }
-
-		/**
-		 * Set the event dispatcher instance on the connection.
-		 *
-		 * @param \Illuminate\Events\Dispatcher
-		 * @return void
-		 * @static 
-		 */
-		 public static function setEventDispatcher($events){
-			//Method inherited from \Illuminate\Database\Connection
-			 \Illuminate\Database\MySqlConnection::setEventDispatcher($events);
-		 }
-
-		/**
-		 * Get the paginator environment instance.
-		 *
-		 * @return \Illuminate\Pagination\Environment
-		 * @static 
-		 */
-		 public static function getPaginator(){
-			//Method inherited from \Illuminate\Database\Connection
-			return \Illuminate\Database\MySqlConnection::getPaginator();
-		 }
-
-		/**
-		 * Set the pagination environment instance.
-		 *
-		 * @param \Illuminate\Pagination\Environment|\Closure  $paginator
-		 * @return void
-		 * @static 
-		 */
-		 public static function setPaginator($paginator){
-			//Method inherited from \Illuminate\Database\Connection
-			 \Illuminate\Database\MySqlConnection::setPaginator($paginator);
-		 }
-
-		/**
-		 * Get the cache manager instance.
-		 *
-		 * @return \Illuminate\Cache\CacheManager
-		 * @static 
-		 */
-		 public static function getCacheManager(){
-			//Method inherited from \Illuminate\Database\Connection
-			return \Illuminate\Database\MySqlConnection::getCacheManager();
-		 }
-
-		/**
-		 * Set the cache manager instance on the connection.
-		 *
-		 * @param \Illuminate\Cache\CacheManager|\Closure  $cache
-		 * @return void
-		 * @static 
-		 */
-		 public static function setCacheManager($cache){
-			//Method inherited from \Illuminate\Database\Connection
-			 \Illuminate\Database\MySqlConnection::setCacheManager($cache);
-		 }
-
-		/**
-		 * Determine if the connection in a "dry run".
-		 *
-		 * @return bool
-		 * @static 
-		 */
-		 public static function pretending(){
-			//Method inherited from \Illuminate\Database\Connection
-			return \Illuminate\Database\MySqlConnection::pretending();
-		 }
-
-		/**
-		 * Get the default fetch mode for the connection.
-		 *
-		 * @return int
-		 * @static 
-		 */
-		 public static function getFetchMode(){
-			//Method inherited from \Illuminate\Database\Connection
-			return \Illuminate\Database\MySqlConnection::getFetchMode();
-		 }
-
-		/**
-		 * Set the default fetch mode for the connection.
-		 *
-		 * @param int  $fetchMode
-		 * @return int
-		 * @static 
-		 */
-		 public static function setFetchMode($fetchMode){
-			//Method inherited from \Illuminate\Database\Connection
-			return \Illuminate\Database\MySqlConnection::setFetchMode($fetchMode);
-		 }
-
-		/**
-		 * Get the connection query log.
-		 *
-		 * @return array
-		 * @static 
-		 */
-		 public static function getQueryLog(){
-			//Method inherited from \Illuminate\Database\Connection
-			return \Illuminate\Database\MySqlConnection::getQueryLog();
-		 }
-
-		/**
-		 * Clear the query log.
-		 *
-		 * @return void
-		 * @static 
-		 */
-		 public static function flushQueryLog(){
-			//Method inherited from \Illuminate\Database\Connection
-			 \Illuminate\Database\MySqlConnection::flushQueryLog();
-		 }
-
-		/**
-		 * Enable the query log on the connection.
-		 *
-		 * @return void
-		 * @static 
-		 */
-		 public static function enableQueryLog(){
-			//Method inherited from \Illuminate\Database\Connection
-			 \Illuminate\Database\MySqlConnection::enableQueryLog();
-		 }
-
-		/**
-		 * Disable the query log on the connection.
-		 *
-		 * @return void
-		 * @static 
-		 */
-		 public static function disableQueryLog(){
-			//Method inherited from \Illuminate\Database\Connection
-			 \Illuminate\Database\MySqlConnection::disableQueryLog();
-		 }
-
-		/**
-		 * Determine whether we're logging queries.
-		 *
-		 * @return bool
-		 * @static 
-		 */
-		 public static function logging(){
-			//Method inherited from \Illuminate\Database\Connection
-			return \Illuminate\Database\MySqlConnection::logging();
-		 }
-
-		/**
-		 * Get the name of the connected database.
-		 *
-		 * @return string
-		 * @static 
-		 */
-		 public static function getDatabaseName(){
-			//Method inherited from \Illuminate\Database\Connection
-			return \Illuminate\Database\MySqlConnection::getDatabaseName();
-		 }
-
-		/**
-		 * Set the name of the connected database.
-		 *
-		 * @param string  $database
-		 * @return string
-		 * @static 
-		 */
-		 public static function setDatabaseName($database){
-			//Method inherited from \Illuminate\Database\Connection
-			return \Illuminate\Database\MySqlConnection::setDatabaseName($database);
-		 }
-
-		/**
-		 * Get the table prefix for the connection.
-		 *
-		 * @return string
-		 * @static 
-		 */
-		 public static function getTablePrefix(){
-			//Method inherited from \Illuminate\Database\Connection
-			return \Illuminate\Database\MySqlConnection::getTablePrefix();
-		 }
-
-		/**
-		 * Set the table prefix in use by the connection.
-		 *
-		 * @param string  $prefix
-		 * @return void
-		 * @static 
-		 */
-		 public static function setTablePrefix($prefix){
-			//Method inherited from \Illuminate\Database\Connection
-			 \Illuminate\Database\MySqlConnection::setTablePrefix($prefix);
-		 }
-
-		/**
-		 * Set the table prefix and return the grammar.
-		 *
-		 * @param \Illuminate\Database\Grammar  $grammar
-		 * @return \Illuminate\Database\Grammar
-		 * @static 
-		 */
-		 public static function withTablePrefix($grammar){
-			//Method inherited from \Illuminate\Database\Connection
-			return \Illuminate\Database\MySqlConnection::withTablePrefix($grammar);
 		 }
 
 	}
@@ -6504,7 +5860,7 @@ namespace {
 		 }
 
 		/**
-		 * Determine if the request contains a non-emtpy value for an  input item.
+		 * Determine if the request contains a non-emtpy value for an input item.
 		 *
 		 * @param string|array  $key
 		 * @return bool
@@ -7933,7 +7289,7 @@ namespace {
 		 }
 
 		/**
-		 * Set the fallback locale being used.
+		 * Get the fallback locale being used.
 		 *
 		 * @return string
 		 * @static 
@@ -8630,85 +7986,266 @@ namespace {
 		 }
 
 	}
-	class Password extends \Illuminate\Support\Facades\Password{
+	class Queue extends \Aveley\Artisanqueue\Queue{
 		/**
-		 * Create a new password broker instance.
+		 * Create a new queue manager instance.
 		 *
-		 * @param \Illuminate\Auth\Reminders\ReminderRepositoryInterface  $reminders
-		 * @param \Illuminate\Auth\UserProviderInterface  $users
-		 * @param \Illuminate\Mail\Mailer  $mailer
-		 * @param string  $reminderView
+		 * @param \Illuminate\Foundation\Application  $app
 		 * @return void
 		 * @static 
 		 */
-		 public static function __construct($reminders, $users, $mailer, $reminderView){
-			//Method inherited from \Illuminate\Auth\Reminders\PasswordBroker
-			 \Illuminate\Auth\Reminders\PasswordBroker::__construct($reminders, $users, $mailer, $reminderView);
+		 public static function __construct($app){
+			//Method inherited from \Illuminate\Queue\QueueManager
+			 \Illuminate\Queue\QueueManager::__construct($app);
 		 }
 
 		/**
-		 * Send a password reminder to a user.
+		 * Register an event listener for the failed job event.
 		 *
-		 * @param array    $credentials
-		 * @param Closure  $callback
+		 * @param mixed  $callback
+		 * @return void
+		 * @static 
+		 */
+		 public static function failing($callback){
+			//Method inherited from \Illuminate\Queue\QueueManager
+			 \Illuminate\Queue\QueueManager::failing($callback);
+		 }
+
+		/**
+		 * Determine if the driver is connected.
+		 *
+		 * @param string  $name
+		 * @return bool
+		 * @static 
+		 */
+		 public static function connected($name = null){
+			//Method inherited from \Illuminate\Queue\QueueManager
+			return \Illuminate\Queue\QueueManager::connected($name);
+		 }
+
+		/**
+		 * Resolve a queue connection instance.
+		 *
+		 * @param string  $name
+		 * @return \Illuminate\Queue\QueueInterface
+		 * @static 
+		 */
+		 public static function connection($name = null){
+			//Method inherited from \Illuminate\Queue\QueueManager
+			return \Illuminate\Queue\QueueManager::connection($name);
+		 }
+
+		/**
+		 * Add a queue connection resolver.
+		 *
+		 * @param string   $driver
+		 * @param Closure  $resolver
+		 * @return void
+		 * @static 
+		 */
+		 public static function extend($driver, $resolver){
+			//Method inherited from \Illuminate\Queue\QueueManager
+			 \Illuminate\Queue\QueueManager::extend($driver, $resolver);
+		 }
+
+		/**
+		 * Add a queue connection resolver.
+		 *
+		 * @param string   $driver
+		 * @param Closure  $resolver
+		 * @return void
+		 * @static 
+		 */
+		 public static function addConnector($driver, $resolver){
+			//Method inherited from \Illuminate\Queue\QueueManager
+			 \Illuminate\Queue\QueueManager::addConnector($driver, $resolver);
+		 }
+
+		/**
+		 * Get the name of the default queue connection.
+		 *
 		 * @return string
 		 * @static 
 		 */
-		 public static function remind($credentials, $callback = null){
-			//Method inherited from \Illuminate\Auth\Reminders\PasswordBroker
-			return \Illuminate\Auth\Reminders\PasswordBroker::remind($credentials, $callback);
+		 public static function getDefaultDriver(){
+			//Method inherited from \Illuminate\Queue\QueueManager
+			return \Illuminate\Queue\QueueManager::getDefaultDriver();
 		 }
 
 		/**
-		 * Send the password reminder e-mail.
+		 * Set the name of the default queue connection.
 		 *
-		 * @param \Illuminate\Auth\Reminders\RemindableInterface  $user
-		 * @param string   $token
-		 * @param Closure  $callback
+		 * @param string  $name
 		 * @return void
 		 * @static 
 		 */
-		 public static function sendReminder($user, $token, $callback = null){
-			//Method inherited from \Illuminate\Auth\Reminders\PasswordBroker
-			 \Illuminate\Auth\Reminders\PasswordBroker::sendReminder($user, $token, $callback);
+		 public static function setDefaultDriver($name){
+			//Method inherited from \Illuminate\Queue\QueueManager
+			 \Illuminate\Queue\QueueManager::setDefaultDriver($name);
 		 }
 
 		/**
-		 * Reset the password for the given token.
+		 * Get the full name for the given connection.
 		 *
-		 * @param array    $credentials
-		 * @param Closure  $callback
+		 * @param string  $connection
+		 * @return string
+		 * @static 
+		 */
+		 public static function getName($connection = null){
+			//Method inherited from \Illuminate\Queue\QueueManager
+			return \Illuminate\Queue\QueueManager::getName($connection);
+		 }
+
+		/**
+		 * Dynamically pass calls to the default connection.
+		 *
+		 * @param string  $method
+		 * @param array   $parameters
 		 * @return mixed
 		 * @static 
 		 */
-		 public static function reset($credentials, $callback){
-			//Method inherited from \Illuminate\Auth\Reminders\PasswordBroker
-			return \Illuminate\Auth\Reminders\PasswordBroker::reset($credentials, $callback);
+		 public static function __call($method, $parameters){
+			//Method inherited from \Illuminate\Queue\QueueManager
+			return \Illuminate\Queue\QueueManager::__call($method, $parameters);
 		 }
 
 		/**
-		 * Set a custom password validator.
+		 * Push a new job onto the queue.
 		 *
-		 * @param \Closure  $callback
+		 * @param string  $job
+		 * @param mixed   $data
+		 * @param string  $queue
+		 * @return mixed
+		 * @static 
+		 */
+		 public static function push($job, $data = '', $queue = null){
+			//Method inherited from \Illuminate\Queue\BeanstalkdQueue
+			return \Illuminate\Queue\BeanstalkdQueue::push($job, $data, $queue);
+		 }
+
+		/**
+		 * Push a raw payload onto the queue.
+		 *
+		 * @param string  $payload
+		 * @param string  $queue
+		 * @param array   $options
+		 * @return mixed
+		 * @static 
+		 */
+		 public static function pushRaw($payload, $queue = null, $options = array()){
+			//Method inherited from \Illuminate\Queue\BeanstalkdQueue
+			return \Illuminate\Queue\BeanstalkdQueue::pushRaw($payload, $queue, $options);
+		 }
+
+		/**
+		 * Push a new job onto the queue after a delay.
+		 *
+		 * @param \DateTime|int  $delay
+		 * @param string  $job
+		 * @param mixed   $data
+		 * @param string  $queue
+		 * @return mixed
+		 * @static 
+		 */
+		 public static function later($delay, $job, $data = '', $queue = null){
+			//Method inherited from \Illuminate\Queue\BeanstalkdQueue
+			return \Illuminate\Queue\BeanstalkdQueue::later($delay, $job, $data, $queue);
+		 }
+
+		/**
+		 * Pop the next job off of the queue.
+		 *
+		 * @param string  $queue
+		 * @return \Illuminate\Queue\Jobs\Job|null
+		 * @static 
+		 */
+		 public static function pop($queue = null){
+			//Method inherited from \Illuminate\Queue\BeanstalkdQueue
+			return \Illuminate\Queue\BeanstalkdQueue::pop($queue);
+		 }
+
+		/**
+		 * Delete a message from the Beanstalk queue.
+		 *
+		 * @param string  $queue
+		 * @param string  $id
 		 * @return void
 		 * @static 
 		 */
-		 public static function validator($callback){
-			//Method inherited from \Illuminate\Auth\Reminders\PasswordBroker
-			 \Illuminate\Auth\Reminders\PasswordBroker::validator($callback);
+		 public static function deleteMessage($queue, $id){
+			//Method inherited from \Illuminate\Queue\BeanstalkdQueue
+			 \Illuminate\Queue\BeanstalkdQueue::deleteMessage($queue, $id);
 		 }
 
 		/**
-		 * Get the user for the given credentials.
+		 * Get the queue or return the default.
 		 *
-		 * @param array  $credentials
-		 * @return \Illuminate\Auth\Reminders\RemindableInterface
-		 * @throws \UnexpectedValueException
+		 * @param string|null  $queue
+		 * @return string
 		 * @static 
 		 */
-		 public static function getUser($credentials){
-			//Method inherited from \Illuminate\Auth\Reminders\PasswordBroker
-			return \Illuminate\Auth\Reminders\PasswordBroker::getUser($credentials);
+		 public static function getQueue($queue){
+			//Method inherited from \Illuminate\Queue\BeanstalkdQueue
+			return \Illuminate\Queue\BeanstalkdQueue::getQueue($queue);
+		 }
+
+		/**
+		 * Get the underlying Pheanstalk instance.
+		 *
+		 * @return Pheanstalk
+		 * @static 
+		 */
+		 public static function getPheanstalk(){
+			//Method inherited from \Illuminate\Queue\BeanstalkdQueue
+			return \Illuminate\Queue\BeanstalkdQueue::getPheanstalk();
+		 }
+
+		/**
+		 * Marshal a push queue request and fire the job.
+		 *
+		 * @throws \RuntimeException
+		 * @static 
+		 */
+		 public static function marshal(){
+			//Method inherited from \Illuminate\Queue\Queue
+			 \Illuminate\Queue\BeanstalkdQueue::marshal();
+		 }
+
+		/**
+		 * Push a new an array of jobs onto the queue.
+		 *
+		 * @param array   $jobs
+		 * @param mixed   $data
+		 * @param string  $queue
+		 * @return mixed
+		 * @static 
+		 */
+		 public static function bulk($jobs, $data = '', $queue = null){
+			//Method inherited from \Illuminate\Queue\Queue
+			return \Illuminate\Queue\BeanstalkdQueue::bulk($jobs, $data, $queue);
+		 }
+
+		/**
+		 * Get the current UNIX timestamp.
+		 *
+		 * @return int
+		 * @static 
+		 */
+		 public static function getTime(){
+			//Method inherited from \Illuminate\Queue\Queue
+			return \Illuminate\Queue\BeanstalkdQueue::getTime();
+		 }
+
+		/**
+		 * Set the IoC container instance.
+		 *
+		 * @param \Illuminate\Container\Container  $container
+		 * @return void
+		 * @static 
+		 */
+		 public static function setContainer($container){
+			//Method inherited from \Illuminate\Queue\Queue
+			 \Illuminate\Queue\BeanstalkdQueue::setContainer($container);
 		 }
 
 	}
@@ -9091,7 +8628,7 @@ namespace {
 		 }
 
 		/**
-		 * Determine if the request contains a non-emtpy value for an  input item.
+		 * Determine if the request contains a non-emtpy value for an input item.
 		 *
 		 * @param string|array  $key
 		 * @return bool
@@ -10928,143 +10465,6 @@ namespace {
 		 }
 
 	}
-	class Schema extends \Illuminate\Support\Facades\Schema{
-		/**
-		 * Determine if the given table exists.
-		 *
-		 * @param string  $table
-		 * @return bool
-		 * @static 
-		 */
-		 public static function hasTable($table){
-			//Method inherited from \Illuminate\Database\Schema\MySqlBuilder
-			return \Illuminate\Database\Schema\MySqlBuilder::hasTable($table);
-		 }
-
-		/**
-		 * Create a new database Schema manager.
-		 *
-		 * @param \Illuminate\Database\Connection  $connection
-		 * @return void
-		 * @static 
-		 */
-		 public static function __construct($connection){
-			//Method inherited from \Illuminate\Database\Schema\Builder
-			 \Illuminate\Database\Schema\MySqlBuilder::__construct($connection);
-		 }
-
-		/**
-		 * Determine if the given table has a given column.
-		 *
-		 * @param string  $table
-		 * @param string  $column
-		 * @return bool
-		 * @static 
-		 */
-		 public static function hasColumn($table, $column){
-			//Method inherited from \Illuminate\Database\Schema\Builder
-			return \Illuminate\Database\Schema\MySqlBuilder::hasColumn($table, $column);
-		 }
-
-		/**
-		 * Modify a table on the schema.
-		 *
-		 * @param string   $table
-		 * @param Closure  $callback
-		 * @return \Illuminate\Database\Schema\Blueprint
-		 * @static 
-		 */
-		 public static function table($table, $callback){
-			//Method inherited from \Illuminate\Database\Schema\Builder
-			return \Illuminate\Database\Schema\MySqlBuilder::table($table, $callback);
-		 }
-
-		/**
-		 * Create a new table on the schema.
-		 *
-		 * @param string   $table
-		 * @param Closure  $callback
-		 * @return \Illuminate\Database\Schema\Blueprint
-		 * @static 
-		 */
-		 public static function create($table, $callback){
-			//Method inherited from \Illuminate\Database\Schema\Builder
-			return \Illuminate\Database\Schema\MySqlBuilder::create($table, $callback);
-		 }
-
-		/**
-		 * Drop a table from the schema.
-		 *
-		 * @param string  $table
-		 * @return \Illuminate\Database\Schema\Blueprint
-		 * @static 
-		 */
-		 public static function drop($table){
-			//Method inherited from \Illuminate\Database\Schema\Builder
-			return \Illuminate\Database\Schema\MySqlBuilder::drop($table);
-		 }
-
-		/**
-		 * Drop a table from the schema if it exists.
-		 *
-		 * @param string  $table
-		 * @return \Illuminate\Database\Schema\Blueprint
-		 * @static 
-		 */
-		 public static function dropIfExists($table){
-			//Method inherited from \Illuminate\Database\Schema\Builder
-			return \Illuminate\Database\Schema\MySqlBuilder::dropIfExists($table);
-		 }
-
-		/**
-		 * Rename a table on the schema.
-		 *
-		 * @param string  $from
-		 * @param string  $to
-		 * @return \Illuminate\Database\Schema\Blueprint
-		 * @static 
-		 */
-		 public static function rename($from, $to){
-			//Method inherited from \Illuminate\Database\Schema\Builder
-			return \Illuminate\Database\Schema\MySqlBuilder::rename($from, $to);
-		 }
-
-		/**
-		 * Get the database connection instance.
-		 *
-		 * @return \Illuminate\Database\Connection
-		 * @static 
-		 */
-		 public static function getConnection(){
-			//Method inherited from \Illuminate\Database\Schema\Builder
-			return \Illuminate\Database\Schema\MySqlBuilder::getConnection();
-		 }
-
-		/**
-		 * Set the database connection instance.
-		 *
-		 * @param \Illuminate\Database\Connection
-		 * @return \Illuminate\Database\Schema\Builder
-		 * @static 
-		 */
-		 public static function setConnection($connection){
-			//Method inherited from \Illuminate\Database\Schema\Builder
-			return \Illuminate\Database\Schema\MySqlBuilder::setConnection($connection);
-		 }
-
-		/**
-		 * Set the Schema Blueprint resolver callback.
-		 *
-		 * @param \Closure  $resolver
-		 * @return void
-		 * @static 
-		 */
-		 public static function blueprintResolver($resolver){
-			//Method inherited from \Illuminate\Database\Schema\Builder
-			 \Illuminate\Database\Schema\MySqlBuilder::blueprintResolver($resolver);
-		 }
-
-	}
 	class Seeder extends \Illuminate\Database\Seeder{
 	}
 	class Session extends \Illuminate\Support\Facades\Session{
@@ -12497,6 +11897,446 @@ namespace {
 		 public static function getNames(){
 			//Method inherited from \Illuminate\View\Environment
 			return \Illuminate\View\Environment::getNames();
+		 }
+
+	}
+	class Agent extends \Jenssegers\Agent\Facades\Agent{
+		/**
+		 * Get all detection rules. These rules include the additional
+		 * platforms and browsers.
+		 *
+		 * @return array
+		 * @static 
+		 */
+		 public static function getDetectionRulesExtended(){
+			//Method inherited from \Jenssegers\Agent\Agent
+			return \Jenssegers\Agent\Agent::getDetectionRulesExtended();
+		 }
+
+		/**
+		 * Retrieve the current set of rules.
+		 *
+		 * @return array
+		 * @static 
+		 */
+		 public static function getRules(){
+			//Method inherited from \Jenssegers\Agent\Agent
+			return \Jenssegers\Agent\Agent::getRules();
+		 }
+
+		/**
+		 * Get accept languages.
+		 *
+		 * @return array
+		 * @static 
+		 */
+		 public static function languages($acceptLanguage = null){
+			//Method inherited from \Jenssegers\Agent\Agent
+			return \Jenssegers\Agent\Agent::languages($acceptLanguage);
+		 }
+
+		/**
+		 * Get the browser name.
+		 *
+		 * @return string
+		 * @static 
+		 */
+		 public static function browser($userAgent = null){
+			//Method inherited from \Jenssegers\Agent\Agent
+			return \Jenssegers\Agent\Agent::browser($userAgent);
+		 }
+
+		/**
+		 * Get the platform name.
+		 *
+		 * @param string $userAgent
+		 * @return string
+		 * @static 
+		 */
+		 public static function platform($userAgent = null){
+			//Method inherited from \Jenssegers\Agent\Agent
+			return \Jenssegers\Agent\Agent::platform($userAgent);
+		 }
+
+		/**
+		 * Get the device name.
+		 *
+		 * @param string $userAgent
+		 * @return string
+		 * @static 
+		 */
+		 public static function device($userAgent = null){
+			//Method inherited from \Jenssegers\Agent\Agent
+			return \Jenssegers\Agent\Agent::device($userAgent);
+		 }
+
+		/**
+		 * Check if device is a robot.
+		 *
+		 * @param string  $userAgent
+		 * @return boolean
+		 * @static 
+		 */
+		 public static function isRobot($userAgent = null){
+			//Method inherited from \Jenssegers\Agent\Agent
+			return \Jenssegers\Agent\Agent::isRobot($userAgent);
+		 }
+
+		/**
+		 * Check the version of the given property in the User-Agent.
+		 *
+		 * @inherit 
+		 * @static 
+		 */
+		 public static function version($propertyName, $type = 'text'){
+			//Method inherited from \Jenssegers\Agent\Agent
+			 \Jenssegers\Agent\Agent::version($propertyName, $type);
+		 }
+
+		/**
+		 * Changing detection type to extended.
+		 *
+		 * @inherit 
+		 * @static 
+		 */
+		 public static function __call($name, $arguments){
+			//Method inherited from \Jenssegers\Agent\Agent
+			 \Jenssegers\Agent\Agent::__call($name, $arguments);
+		 }
+
+		/**
+		 * Construct an instance of this class.
+		 *
+		 * @param array $headers Specify the headers as injection. Should be PHP _SERVER flavored.
+		 *                       If left empty, will use the global _SERVER['HTTP_*'] vars instead.
+		 * @param string $userAgent Inject the User-Agent header. If null, will use HTTP_USER_AGENT
+		 *                          from the $headers array instead.
+		 * @static 
+		 */
+		 public static function __construct($headers = null, $userAgent = null){
+			//Method inherited from \Mobile_Detect
+			 \Jenssegers\Agent\Agent::__construct($headers, $userAgent);
+		 }
+
+		/**
+		 * Get the current script version.
+		 * 
+		 * This is useful for the demo.php file,
+		 * so people can check on what version they are testing
+		 * for mobile devices.
+		 *
+		 * @return string The version number in semantic version format.
+		 * @static 
+		 */
+		 public static function getScriptVersion(){
+			//Method inherited from \Mobile_Detect
+			return \Jenssegers\Agent\Agent::getScriptVersion();
+		 }
+
+		/**
+		 * Set the HTTP Headers. Must be PHP-flavored. This method will reset existing headers.
+		 *
+		 * @param array $httpHeaders The headers to set. If null, then using PHP's _SERVER to extract
+		 *                           the headers. The default null is left for backwards compatibilty.
+		 * @static 
+		 */
+		 public static function setHttpHeaders($httpHeaders = null){
+			//Method inherited from \Mobile_Detect
+			 \Jenssegers\Agent\Agent::setHttpHeaders($httpHeaders);
+		 }
+
+		/**
+		 * Retrieves the HTTP headers.
+		 *
+		 * @return array
+		 * @static 
+		 */
+		 public static function getHttpHeaders(){
+			//Method inherited from \Mobile_Detect
+			return \Jenssegers\Agent\Agent::getHttpHeaders();
+		 }
+
+		/**
+		 * Retrieves a particular header. If it doesn't exist, no exception/error is caused.
+		 * 
+		 * Simply null is returned.
+		 *
+		 * @param string $header The name of the header to retrieve. Can be HTTP compliant such as
+		 *                       "User-Agent" or "X-Device-User-Agent" or can be php-esque with the
+		 *                       all-caps, HTTP_ prefixed, underscore seperated awesomeness.
+		 * @return string|null The value of the header.
+		 * @static 
+		 */
+		 public static function getHttpHeader($header){
+			//Method inherited from \Mobile_Detect
+			return \Jenssegers\Agent\Agent::getHttpHeader($header);
+		 }
+
+		/**
+		 * 
+		 *
+		 * @static 
+		 */
+		 public static function getMobileHeaders(){
+			//Method inherited from \Mobile_Detect
+			 \Jenssegers\Agent\Agent::getMobileHeaders();
+		 }
+
+		/**
+		 * Get all possible HTTP headers that
+		 * can contain the User-Agent string.
+		 *
+		 * @return array List of HTTP headers.
+		 * @static 
+		 */
+		 public static function getUaHttpHeaders(){
+			//Method inherited from \Mobile_Detect
+			return \Jenssegers\Agent\Agent::getUaHttpHeaders();
+		 }
+
+		/**
+		 * Set the User-Agent to be used.
+		 *
+		 * @param string $userAgent The user agent string to set.
+		 * @static 
+		 */
+		 public static function setUserAgent($userAgent = null){
+			//Method inherited from \Mobile_Detect
+			 \Jenssegers\Agent\Agent::setUserAgent($userAgent);
+		 }
+
+		/**
+		 * Retrieve the User-Agent.
+		 *
+		 * @return string|null The user agent if it's set.
+		 * @static 
+		 */
+		 public static function getUserAgent(){
+			//Method inherited from \Mobile_Detect
+			return \Jenssegers\Agent\Agent::getUserAgent();
+		 }
+
+		/**
+		 * Set the detection type. Must be one of self::DETECTION_TYPE_MOBILE or
+		 * self::DETECTION_TYPE_EXTENDED. Otherwise, nothing is set.
+		 *
+		 * @deprecated since version 2.6.9
+		 * @param string $type The type. Must be a self::DETECTION_TYPE_* constant. The default
+		 *                     parameter is null which will default to self::DETECTION_TYPE_MOBILE.
+		 * @static 
+		 */
+		 public static function setDetectionType($type = null){
+			//Method inherited from \Mobile_Detect
+			 \Jenssegers\Agent\Agent::setDetectionType($type);
+		 }
+
+		/**
+		 * Retrieve the list of known phone devices.
+		 *
+		 * @return array List of phone devices.
+		 * @static 
+		 */
+		 public static function getPhoneDevices(){
+			//Method inherited from \Mobile_Detect
+			return \Jenssegers\Agent\Agent::getPhoneDevices();
+		 }
+
+		/**
+		 * Retrieve the list of known tablet devices.
+		 *
+		 * @return array List of tablet devices.
+		 * @static 
+		 */
+		 public static function getTabletDevices(){
+			//Method inherited from \Mobile_Detect
+			return \Jenssegers\Agent\Agent::getTabletDevices();
+		 }
+
+		/**
+		 * Alias for getBrowsers() method.
+		 *
+		 * @return array List of user agents.
+		 * @static 
+		 */
+		 public static function getUserAgents(){
+			//Method inherited from \Mobile_Detect
+			return \Jenssegers\Agent\Agent::getUserAgents();
+		 }
+
+		/**
+		 * Retrieve the list of known browsers. Specifically, the user agents.
+		 *
+		 * @return array List of browsers / user agents.
+		 * @static 
+		 */
+		 public static function getBrowsers(){
+			//Method inherited from \Mobile_Detect
+			return \Jenssegers\Agent\Agent::getBrowsers();
+		 }
+
+		/**
+		 * Retrieve the list of known utilities.
+		 *
+		 * @return array List of utilities.
+		 * @static 
+		 */
+		 public static function getUtilities(){
+			//Method inherited from \Mobile_Detect
+			return \Jenssegers\Agent\Agent::getUtilities();
+		 }
+
+		/**
+		 * Method gets the mobile detection rules. This method is used for the magic methods $detect->is*().
+		 *
+		 * @deprecated since version 2.6.9
+		 * @return array All the rules (but not extended).
+		 * @static 
+		 */
+		 public static function getMobileDetectionRules(){
+			//Method inherited from \Mobile_Detect
+			return \Jenssegers\Agent\Agent::getMobileDetectionRules();
+		 }
+
+		/**
+		 * Method gets the mobile detection rules + utilities.
+		 * 
+		 * The reason this is separate is because utilities rules
+		 * don't necessary imply mobile. This method is used inside
+		 * the new $detect->is('stuff') method.
+		 *
+		 * @deprecated since version 2.6.9
+		 * @return array All the rules + extended.
+		 * @static 
+		 */
+		 public static function getMobileDetectionRulesExtended(){
+			//Method inherited from \Mobile_Detect
+			return \Jenssegers\Agent\Agent::getMobileDetectionRulesExtended();
+		 }
+
+		/**
+		 * Retrieve the list of mobile operating systems.
+		 *
+		 * @return array The list of mobile operating systems.
+		 * @static 
+		 */
+		 public static function getOperatingSystems(){
+			//Method inherited from \Mobile_Detect
+			return \Jenssegers\Agent\Agent::getOperatingSystems();
+		 }
+
+		/**
+		 * Check the HTTP headers for signs of mobile.
+		 * 
+		 * This is the fastest mobile check possible; it's used
+		 * inside isMobile() method.
+		 *
+		 * @return bool
+		 * @static 
+		 */
+		 public static function checkHttpHeadersForMobile(){
+			//Method inherited from \Mobile_Detect
+			return \Jenssegers\Agent\Agent::checkHttpHeadersForMobile();
+		 }
+
+		/**
+		 * Check if the device is mobile.
+		 * 
+		 * Returns true if any type of mobile device detected, including special ones
+		 *
+		 * @param null $userAgent deprecated
+		 * @param null $httpHeaders deprecated
+		 * @return bool
+		 * @static 
+		 */
+		 public static function isMobile($userAgent = null, $httpHeaders = null){
+			//Method inherited from \Mobile_Detect
+			return \Jenssegers\Agent\Agent::isMobile($userAgent, $httpHeaders);
+		 }
+
+		/**
+		 * Check if the device is a tablet.
+		 * 
+		 * Return true if any type of tablet device is detected.
+		 *
+		 * @param string $userAgent   deprecated
+		 * @param array  $httpHeaders deprecated
+		 * @return bool
+		 * @static 
+		 */
+		 public static function isTablet($userAgent = null, $httpHeaders = null){
+			//Method inherited from \Mobile_Detect
+			return \Jenssegers\Agent\Agent::isTablet($userAgent, $httpHeaders);
+		 }
+
+		/**
+		 * This method checks for a certain property in the
+		 * userAgent.
+		 *
+		 * @todo : The httpHeaders part is not yet used.
+		 * @param $key
+		 * @param string        $userAgent   deprecated
+		 * @param string        $httpHeaders deprecated
+		 * @return bool|int|null
+		 * @static 
+		 */
+		 public static function is($key, $userAgent = null, $httpHeaders = null){
+			//Method inherited from \Mobile_Detect
+			return \Jenssegers\Agent\Agent::is($key, $userAgent, $httpHeaders);
+		 }
+
+		/**
+		 * Some detection rules are relative (not standard),
+		 * because of the diversity of devices, vendors and
+		 * their conventions in representing the User-Agent or
+		 * the HTTP headers.
+		 * 
+		 * This method will be used to check custom regexes against
+		 * the User-Agent string.
+		 *
+		 * @param $regex
+		 * @param string $userAgent
+		 * @return bool
+		 * @todo : search in the HTTP headers too.
+		 * @static 
+		 */
+		 public static function match($regex, $userAgent = null){
+			//Method inherited from \Mobile_Detect
+			return \Jenssegers\Agent\Agent::match($regex, $userAgent);
+		 }
+
+		/**
+		 * Get the properties array.
+		 *
+		 * @return array
+		 * @static 
+		 */
+		 public static function getProperties(){
+			//Method inherited from \Mobile_Detect
+			return \Jenssegers\Agent\Agent::getProperties();
+		 }
+
+		/**
+		 * Prepare the version number.
+		 *
+		 * @todo Remove the error supression from str_replace() call.
+		 * @param string $ver The string version, like "2.6.21.2152";
+		 * @return float
+		 * @static 
+		 */
+		 public static function prepareVersionNo($ver){
+			//Method inherited from \Mobile_Detect
+			return \Jenssegers\Agent\Agent::prepareVersionNo($ver);
+		 }
+
+		/**
+		 * Retrieve the mobile grading, using self::MOBILE_GRADE_* constants.
+		 *
+		 * @return string One of the self::MOBILE_GRADE_* constants.
+		 * @static 
+		 */
+		 public static function mobileGrade(){
+			//Method inherited from \Mobile_Detect
+			return \Jenssegers\Agent\Agent::mobileGrade();
 		 }
 
 	}
