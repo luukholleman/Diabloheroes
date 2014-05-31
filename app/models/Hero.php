@@ -135,6 +135,19 @@ class Hero extends Eloquent{
 		return $value;
 	}
 
+	public function getKlassAttribute($value)
+	{
+		return new Klass($value);
+	}
+
+	public function setKlassAttribute($value)
+	{
+		if($value instanceof Klass)
+			$this->attributes['klass'] = $value->short();
+		else
+			$this->attributes['klass'] = $value;
+	}
+
 	public function getRankValue(Ranklist $ranklist)
 	{
 		$stat = Stat::whereName($ranklist->stat)->first();
