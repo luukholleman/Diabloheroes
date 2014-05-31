@@ -30,14 +30,14 @@ class RanklistSeeder extends Seeder{
 
 			Ranklist::firstOrCreate([
 				'ranklist_category_id' => $general->id,
-				'name' => 'DPS',
-				'stat' => 'dps',
+				'name' => 'Heroscore',
+				'stat' => 'heroscore',
 			]);
 
 			Ranklist::firstOrCreate([
 				'ranklist_category_id' => $general->id,
-				'name' => 'Heroscore',
-				'stat' => 'heroscore',
+				'name' => 'DPS',
+				'stat' => 'dps',
 			]);
 
 		$core = \Ranklist\Category::firstOrCreate([
@@ -70,6 +70,12 @@ class RanklistSeeder extends Seeder{
 				'stat' => 'strength',
 			]);
 
+			Ranklist::firstOrCreate([
+				'ranklist_category_id' => $core->id,
+				'name' => 'Vitality',
+				'stat' => 'vitality',
+			]);
+
 		$resistance = \Ranklist\Category::firstOrCreate([
 			'name' => 'Resistance',
             'type' => 'hero',
@@ -78,14 +84,38 @@ class RanklistSeeder extends Seeder{
 
 			Ranklist::firstOrCreate([
 				'ranklist_category_id' => $resistance->id,
+				'name' => 'Physical Resistance',
+				'stat' => 'physicalResist',
+			]);
+
+			Ranklist::firstOrCreate([
+				'ranklist_category_id' => $resistance->id,
 				'name' => 'Fire Resistance',
-				'stat' => 'fireResistance',
+				'stat' => 'fireResist',
+			]);
+
+			Ranklist::firstOrCreate([
+				'ranklist_category_id' => $resistance->id,
+				'name' => 'Cold Resistance',
+				'stat' => 'coldResist',
+			]);
+
+			Ranklist::firstOrCreate([
+				'ranklist_category_id' => $resistance->id,
+				'name' => 'Lightning Resistance',
+				'stat' => 'lightningResist',
+			]);
+
+			Ranklist::firstOrCreate([
+				'ranklist_category_id' => $resistance->id,
+				'name' => 'Poison Resistance',
+				'stat' => 'poisonResist',
 			]);
 
 			Ranklist::firstOrCreate([
 				'ranklist_category_id' => $resistance->id,
 				'name' => 'Arcance Resistance',
-				'stat' => 'arcaneResistance',
+				'stat' => 'arcaneResist',
 			]);
 
 		$life = \Ranklist\Category::firstOrCreate([
@@ -104,6 +134,12 @@ class RanklistSeeder extends Seeder{
 				'ranklist_category_id' => $life->id,
 				'name' => 'Life on Hit',
 				'stat' => 'lifeOnHit',
+			]);
+
+			Ranklist::firstOrCreate([
+				'ranklist_category_id' => $life->id,
+				'name' => 'Life Steal',
+				'stat' => 'lifeSteal',
 			]);
 	}
 } 
