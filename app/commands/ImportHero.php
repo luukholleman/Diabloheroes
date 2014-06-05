@@ -55,7 +55,7 @@ class ImportHero extends Command
 				'region' => $this->argument('region'),
 				'name' => $apiHero->getName(),
 				'gender' => $apiHero->getGender(),
-				'klass' => $apiHero->getClass(),
+				'klass' => new Klass($apiHero->getClass()),
 				'level' => $apiHero->getLevel(),
 				'hardcore' => $apiHero->getHardcore(),
 				'dead' => $apiHero->getDead(),
@@ -164,7 +164,8 @@ class ImportHero extends Command
 				$this->call('item:import', [
 					'item' => $item->getTooltipParams(),
 					'region' => 'eu',
-					'--hero' => $hero->id
+					'--hero' => $hero->id,
+					'--slot' => $item->getSlot()
 				]);
 			}
 

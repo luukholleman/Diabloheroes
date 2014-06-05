@@ -40,23 +40,27 @@
 class Hero extends Eloquent{
     public $guarded = ['id'];
 
-    protected $appends = [
-//        'resource_uri',
-//        'detail_uri',
-//        'career_region'
-    ];
-
-	public static $modes = [
-		'0' => 'Softcore',
-		'1' => 'Hardcore'
-	];
-
 	public static $stats = [
 		'strength' => 'Strength_Item',
 		'intelligence' => 'Intelligence_Item',
 		'vitality' => 'Vitality_Item',
 		'armor' => 'Armor_Item',
 	];
+
+	// Item constants
+	const SHOULDERS = 'shoulders';
+	const HEAD = 'head';
+	const NECK = 'neck';
+	const HANDS = 'hands';
+	const TORSO = 'torso';
+	const WRISTS = 'bracers';
+	const LEFT_FINGER = 'leftFinger';
+	const WAIST = 'waist';
+	const RIGHT_FINGER = 'rightFinger';
+	const MAIN_HAND = 'mainHand';
+	const LEGS = 'legs';
+	const OFF_HAND = 'offHand';
+	const FEET = 'feet';
 
     public function careerRegion()
     {
@@ -170,19 +174,22 @@ class Hero extends Eloquent{
 	{
         $ranks = $this->ranks()->whereRanklistId($ranklist->id)->first();
 
-//        var_dump(DB::getQueryLog());
-//        var_dump($ranklist->id);
-//        var_dump($ranks);
-
         return $ranks;
-//		return Cache::remember(sprintf('hero.rank.%d.%d', $this->id, $ranklist->id), 5, function() use ($ranklist){
-//			return
-//		});
-
 	}
 
 	public function getModeAttribute()
 	{
-		return self::$modes[$this->hardcore];
+		return new Mode($this->hardcore);
+	}
+
+	public function setModeAttribute($value)
+	{
+		$this->attributes['hardcore'] = $value->bool();
+	}
+
+	public function getItem($slot)
+	{
+		return Item::firstOrNew(['hero_id' => $this->id, 'slot' => $slot]);
+		return $this->items()->firstOrNew(['slot' => $slot]);
 	}
 } 
