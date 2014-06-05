@@ -20,6 +20,7 @@ class CreateItemsTable extends Migration {
             $table->integer('hero_id')->unsigned()->nullable();
             $table->string('blizzard_id', 20);
             $table->string('name', 50);
+            $table->string('slot', 20);
             $table->string('icon', 50);
             $table->string('tooltip_params');
             $table->smallInteger('required_level');

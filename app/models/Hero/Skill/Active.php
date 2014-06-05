@@ -29,4 +29,9 @@ class Active extends \Eloquent {
 	{
 		return $this->belongsTo('Rune');
 	}
+
+	public function hasRune()
+	{
+		return $this->rune_id != null;
+	}
 } 

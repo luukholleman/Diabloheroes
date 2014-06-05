@@ -36,8 +36,8 @@ class RanklistSeeder extends Seeder{
 
 			Ranklist::firstOrCreate([
 				'ranklist_category_id' => $general->id,
-				'name' => 'DPS',
-				'stat' => 'dps',
+				'name' => 'Buffed DPS',
+				'stat' => 'damage',
 			]);
 
 		$core = \Ranklist\Category::firstOrCreate([

@@ -53,6 +53,7 @@ class ImportItem extends Command
 
 	        $item->fill([
 	            'name' => $apiItem->getName(),
+	            'slot' => $this->option('slot'),
 	            'icon' => $apiItem->getIcon(),
 	            'required_level' => $apiItem->getRequiredLevel(),
 	            'item_level' => $apiItem->getItemLevel(),
@@ -139,6 +140,7 @@ class ImportItem extends Command
     {
         return array(
             array('hero', null, InputOption::VALUE_OPTIONAL, 'Hero to reference to', null),
+            array('slot', null, InputOption::VALUE_OPTIONAL, 'Slot', null),
         );
     }
 

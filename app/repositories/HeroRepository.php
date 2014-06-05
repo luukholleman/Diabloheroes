@@ -38,7 +38,16 @@ class HeroRepository implements RepositoryInterface  {
 
 	public function getMaxLevelCount($hardcore)
 	{
-		return $this->hero->whereHardcore($hardcore)->count();
-//		return $this->hero->whereLevel(70)->whereHardcore($hardcore)->count();
+		return $this->hero->whereLevel(70)->whereHardcore($hardcore)->count();
+	}
+
+	public function getSkillActives(Hero $hero)
+	{
+		return $hero->skillActives;
+	}
+
+	public function getSkillPassives(Hero $hero)
+	{
+		return $hero->skillPassives;
 	}
 } 
