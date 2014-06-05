@@ -28,7 +28,8 @@ $env = $app->detectEnvironment(array(
 
 	'local' => array(
 		'Luuk-PC',
-		'FrikaDell'
+		'FrikaDell',
+        'Luuks-MacBook-Pro.local',
 	),
 ));
 
