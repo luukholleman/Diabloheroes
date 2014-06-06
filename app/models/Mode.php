@@ -9,18 +9,21 @@ class Mode {
 	private $validSoftcore = [
 		'softcore',
 		0,
+        '0',
 		false
 	];
 
 	private $validHardcore = [
 		'hardcore',
 		1,
+        '1',
 		true
 	];
 
 	private $validBoth = [
 		'both',
 		2,
+        '2',
 		null
 	];
 
