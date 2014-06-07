@@ -1,7 +1,18 @@
 <table class="table">
     <thead>
-    <tr>
-    </tr>
+	    <tr>
+		    <th>
+	           <span class="hidden-xs">
+		           Rank
+	           </span>
+		    </th>
+		    <th>
+			    Battletag
+		    </th>
+		    <th>
+			    Value
+		    </th>
+	    </tr>
     </thead>
     @foreach($ranks as $rank)
         <tr>

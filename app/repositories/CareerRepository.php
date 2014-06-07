@@ -1,6 +1,6 @@
 <?php
 
-class CareerRepository {
+class CareerRepository implements RepositoryInterface  {
 
     public function getSoftcoreCareersTop(Ranklist $ranklist)
     {

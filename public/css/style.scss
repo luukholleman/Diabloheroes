@@ -1,39 +1,47 @@
+@import "bootstrap.scss";
+
+$margin: 10px;
+$small-margin: 5px;
+
 body {
-  padding-top: 30px;
-  overflow-y: scroll;
+  padding-top: 0px;
 }
 
-a {
-  color: #FF8B26;
+.navbar {
+  margin-bottom: 0px;
 }
 
-.home-index {
-  .pager {
-    margin: 5px 0;
-  }
+.page-header {
+  margin: $margin 0 $margin;
+  border-bottom: 1px solid #333333;
+}
 
-  table {
-    td:nth-child(1){
-      width: 15px;
+.navbar-form {
+  -webkit-box-shadow: none;
+  box-shadow: none;
+}
+
+a:hover {
+  text-decoration: none;
+}
+
+.gear {
+  div.well {
+    text-align: center;
+    min-height: 100px;
+    img {
+      height: 40px;
     }
-
-    td:nth-child(3){
-      width: 150px;
+    a {
+      display: block;
     }
   }
+}
 
-  .fade-in.ng-enter,
-  .fade-in.ng-leave {
-    -webkit-transition:0.2s linear all;
-    transition:0.2s linear all;
-  }
-
-  .fade-in.ng-enter,
-  .fade-in.ng-leave.ng-leave-active {
-    opacity:0.1;
-  }
-  .fade-in.ng-leave,
-  .fade-in.ng-enter.ng-enter-active {
-    opacity:1;
+@media screen and (max-width: $screen-phone) {
+  .gear {
+    div.well {
+      min-height: 120px;
+    }
   }
 }

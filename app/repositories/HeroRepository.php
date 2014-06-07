@@ -1,32 +1,12 @@
 <?php
 
-class HeroRepository {
+class HeroRepository implements RepositoryInterface  {
 
 	public $hero;
 
 	public function __construct(Hero $hero)
 	{
 		$this->hero = $hero;
-	}
-
-	public function getSoftcoreHeroesTop(Ranklist $ranklist)
-	{
-		return $this->getHeroesTop($ranklist, false);
-	}
-
-	public function getHardcoreHeroesTop(Ranklist $ranklist)
-	{
-		return $this->getHeroesTop($ranklist, true);
-	}
-
-	public function getHeroesTop(Ranklist $ranklist, $hardcore)
-	{
-		$ranks = \Ranklist\Rank::whereRanklistId($ranklist->id);
-
-        if($hardcore !== null)
-			$ranks = $ranks->whereHardcore($hardcore);
-
-        return $ranks->orderBy('value', 'desc');
 	}
 
 	public function findOrFail($id)
@@ -58,7 +38,16 @@ class HeroRepository {
 
 	public function getMaxLevelCount($hardcore)
 	{
-		return $this->hero->whereHardcore($hardcore)->count();
-//		return $this->hero->whereLevel(70)->whereHardcore($hardcore)->count();
+		return $this->hero->whereLevel(70)->whereHardcore($hardcore)->count();
+	}
+
+	public function getSkillActives(Hero $hero)
+	{
+		return $hero->skillActives;
+	}
+
+	public function getSkillPassives(Hero $hero)
+	{
+		return $hero->skillPassives;
 	}
 } 
