@@ -17,7 +17,7 @@
 
 		<form class="navbar-form navbar-right hidden-xs" role="search">
 			<div class="form-group">
-				<input type="text" class="form-control" placeholder="Search">
+				<input type="text" class="form-control typeahead" placeholder="Search">
 			</div>
 		</form>
 	</div>

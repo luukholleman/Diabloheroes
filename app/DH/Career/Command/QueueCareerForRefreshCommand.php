@@ -3,9 +3,14 @@
 
 namespace DH\Career\Command;
 
+use DH\Command\CommandInterface;
 
-use Guzzle\Service\Command\CommandInterface;
+class QueueCareerForRefreshCommand implements CommandInterface
+{
+    public $battletag;
 
-class QueueCareerForRefreshCommand implements CommandInterface{
-
+    function __construct($battletag)
+    {
+        $this->battletag = $battletag;
+    }
 } 

@@ -19,4 +19,5 @@ Artisan::add(new RankHero());
 Artisan::add(new UpdateRanklists());
 Artisan::add(new HeroRanklist());
 Artisan::add(new CareerRanklist());
+Artisan::add(App::make('SearchIndex'));
 

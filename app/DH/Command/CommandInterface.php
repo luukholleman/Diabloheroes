@@ -4,6 +4,7 @@
 namespace DH\Command;
 
 
-interface CommandInterface {
+interface CommandInterface
+{
 
 } 

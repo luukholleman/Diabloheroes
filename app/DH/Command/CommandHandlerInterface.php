@@ -4,6 +4,7 @@
 namespace DH\Command;
 
 
-interface CommandHandlerInterface {
+interface CommandHandlerInterface
+{
     public function handle(CommandInterface $command);
 } 
