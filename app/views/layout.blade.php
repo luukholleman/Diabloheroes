@@ -29,6 +29,8 @@
 	    {{ HTML::script('js/lib/jquery/jquery-2.1.0.js') }}
         {{ HTML::script('js/debug.js') }}
 	    {{ HTML::script('js/offcanvas.js') }}
+        {{ HTML::script('/bower_components/typeahead.js/src/bloodhound/bloodhound.js') }}
+        {{ HTML::script('js/lib/typeahead/typeahead.js') }}
         <script src="http://eu.battle.net/d3/static/js/tooltips.js"></script>
 
         <script>
@@ -40,6 +42,7 @@
 		        this.registerDataOld(data);
 	        }
         </script>
+        {{ HTML::script('js/app.js') }}
 	    @yield('js')
         {{-- HTML::script('http://cssrefresh.frebsite.nl/js/cssrefresh.js') --}}
     </body>

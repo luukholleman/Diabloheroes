@@ -4,7 +4,8 @@
 namespace DH\Hero\Event;
 
 
-class HeroWasIndexedInSearch {
+class HeroWasIndexedInSearch
+{
     public $hero;
 
     function __construct($hero)

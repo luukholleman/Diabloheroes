@@ -12,22 +12,21 @@ class IndexHeroInSearchCommandHandler implements CommandHandlerInterface
 {
     use EventGenerator;
 
+    /**
+     * @param IndexHeroInSearchCommand $command
+     */
     public function handle(CommandInterface $command)
     {
-        \Search::insert('hero-'.$command->hero->id, [
+        \Search::insert('hero-' . $command->hero->id, [
             'title' => $command->hero->name,
             'content' => "{$command->hero->name} Level {$command->hero->level} Hero",
             'status' => 'published'
         ], [
             'link' => route('hero.profile', [$command->hero->id]),
-            'name' => $command->hero ->name
+            'name' => $command->hero->name
         ]);
 
         $this->raise(new HeroWasIndexedInSearch($command->hero));
-
-        \Event::listen('DH.Hero.HeroWasIndexedInSearch', function(){
-            dd('indexed');
-        });
 
         EventDispatcher::dispatch($this->queuedEvents);
     }

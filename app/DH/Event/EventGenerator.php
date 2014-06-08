@@ -1,8 +1,9 @@
 <?php
 
-namespace Aveley\CommandBus\Event;
+namespace DH\Event;
 
-trait EventGenerator {
+trait EventGenerator
+{
 
     protected $queuedEvents = [];
 
