@@ -1,12 +1,14 @@
 <?php
 
-class HeroController extends BaseController{
+namespace DH\Hero\Controller;
+
+class HeroController extends \DH\Base\Controller\BaseController{
 
 	public $heroRepository;
 
 	public $ranklistRepository;
 
-	public function __construct(HeroRepository $heroRepository, RanklistRepository $ranklistRepository)
+	public function __construct(\HeroRepository $heroRepository, \RanklistRepository $ranklistRepository)
 	{
 		$this->heroRepository = $heroRepository;
 		$this->ranklistRepository = $ranklistRepository;
@@ -23,24 +25,24 @@ class HeroController extends BaseController{
 		$total = $this->heroRepository->getMaxLevelCount($hero->hardcore);
 
 		$slots = [
-			Hero::SHOULDERS,
-			Hero::HEAD,
-			Hero::NECK,
-			Hero::HANDS,
-			Hero::TORSO,
-			Hero::WRISTS,
-			Hero::LEFT_FINGER,
-			Hero::WAIST,
-			Hero::RIGHT_FINGER,
-			Hero::MAIN_HAND,
-			Hero::LEGS,
-			Hero::OFF_HAND,
+			\Hero::SHOULDERS,
+			\Hero::HEAD,
+			\Hero::NECK,
+			\Hero::HANDS,
+			\Hero::TORSO,
+			\Hero::WRISTS,
+			\Hero::LEFT_FINGER,
+			\Hero::WAIST,
+			\Hero::RIGHT_FINGER,
+			\Hero::MAIN_HAND,
+			\Hero::LEGS,
+			\Hero::OFF_HAND,
 			null,
-			Hero::FEET,
+			\Hero::FEET,
 			null,
 		];
 
-		return View::make('hero.profile')
+		return \View::make('hero.profile')
 			->with('hero', $hero)
 			->with('siblings', $siblings)
 			->with('ranklistCategories', $ranklistCategories)
