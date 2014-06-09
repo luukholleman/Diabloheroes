@@ -9,31 +9,37 @@ class EventListener
 
     public function Import_CareerWasImported(Event $event)
     {
-        echo sprintf("[Career] %s %s imported\n", $event->region, $event->career->battletag);
+        if (\App::runningInConsole())
+            echo sprintf("[Career] %s %s imported\n", $event->region, $event->career->battletag);
     }
 
     public function Import_CareerWasNotImported(Event $event)
     {
-        echo sprintf("[Career] %s %s was NOT imported\n", $event->region, $event->battletag);
+        if (\App::runningInConsole())
+            echo sprintf("[Career] %s %s was NOT imported\n", $event->region, $event->battletag);
     }
 
     public function Import_HeroWasImported(Event $event)
     {
-        echo sprintf("[Hero] %s was imported\n", $event->hero->name);
+        if (\App::runningInConsole())
+            echo sprintf("[Hero] %s was imported\n", $event->hero->name);
     }
 
     public function Import_HeroWasNotImported(Event $event)
     {
-        echo sprintf("[Hero] %s was NOT imported\n", $event->hero->name);
+        if (\App::runningInConsole())
+            echo sprintf("[Hero] %s was NOT imported\n", $event->hero->name);
     }
 
     public function Import_ItemWasImported(Event $event)
     {
-        echo sprintf("[Item] %s was imported\n", $event->item->name);
+        if (\App::runningInConsole())
+            echo sprintf("[Item] %s was imported\n", $event->item->name);
     }
 
     public function Import_ItemWasNotImported(Event $event)
     {
-        echo sprintf("[Item] %s was imported\n", $event->item->name);
+        if (\App::runningInConsole())
+            echo sprintf("[Item] %s was imported\n", $event->item->name);
     }
 }
