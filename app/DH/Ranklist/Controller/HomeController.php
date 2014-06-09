@@ -1,9 +1,11 @@
 <?php
 
+namespace DH\Ranklist\Controller;
+
 /**
  * Class HomeController
  */
-class HomeController extends BaseController {
+class HomeController extends \DH\Base\Controller\BaseController {
 
 	/**
 	 * @var RankRepository
@@ -14,7 +16,7 @@ class HomeController extends BaseController {
 	 * @param RanklistRepository $ranklistRepository
 	 * @param RankRepository $rankRepository
 	 */
-	public function __construct(RanklistRepository $ranklistRepository, RankRepository $rankRepository)
+	public function __construct(\RanklistRepository $ranklistRepository, \RankRepository $rankRepository)
 	{
 		$this->ranklistRepository = $ranklistRepository;
 		$this->rankRepository = $rankRepository;
@@ -35,19 +37,19 @@ class HomeController extends BaseController {
 	{
 		$ranklist = $this->ranklistRepository->getRanklistByStat($ranklistStat);
 
-		if($ranklist->ranklistCategory->type == Ranklist::HERO)
-			return $this->showHeroRanklist($ranklist, new Mode($mode), $region);
+		if($ranklist->ranklistCategory->type == \Ranklist::HERO)
+			return $this->showHeroRanklist($ranklist, new \Mode($mode), $region);
 		else
-			return $this->showCareerRanklist($ranklist, new Mode($mode), $region);
+			return $this->showCareerRanklist($ranklist, new \Mode($mode), $region);
 	}
 
-	private function showHeroRanklist(Ranklist $ranklist, Mode $mode, $region)
+	private function showHeroRanklist(\Ranklist $ranklist, \Mode $mode, $region)
 	{
 		$ranklistCategories = $this->ranklistRepository->getAllCategories();
 
 		$ranks = $this->rankRepository->getTop($mode->bool(), $ranklist)->paginate(20);
 
-		return View::make('home.hero')
+		return \View::make('home.hero')
 			->with('currentRanklist', $ranklist)
 			->with('ranklistCategories', $ranklistCategories)
 			->with('ranks', $ranks)
@@ -55,13 +57,13 @@ class HomeController extends BaseController {
 			->with('rankMultiplier', 1 + 20 * ($ranks->getCurrentPage() - 1));
 	}
 
-	private function showCareerRanklist(Ranklist $ranklist, Mode $mode, $region)
+	private function showCareerRanklist(\Ranklist $ranklist, \Mode $mode, $region)
 	{
 		$ranklistCategories = $this->ranklistRepository->getAllCategories();
 
 		$ranks = $this->rankRepository->getTop($mode->bool(), $ranklist)->paginate(20);
 
-		return View::make('home.career')
+		return \View::make('home.career')
 			->with('currentRanklist', $ranklist)
 			->with('ranklistCategories', $ranklistCategories)
 			->with('ranks', $ranks)

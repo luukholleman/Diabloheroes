@@ -11,14 +11,14 @@
 |
 */
 
-Route::controller('hero', 'HeroController', [
+Route::controller('hero', '\DH\Hero\Controller\HeroController', [
 	'getProfile' => 'hero.profile',
 	'getStats' => 'hero.stats',
 ]);
 
 Route::get('/', array(
 	'as' => 'home',
-	'uses' => 'HomeController@showIndex'
+	'uses' => '\DH\Ranklist\Controller\HomeController@showIndex'
 ));
 
 Route::get('/{ranklist}/{mode?}/{region?}', array(
