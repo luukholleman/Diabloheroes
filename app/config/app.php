@@ -114,6 +114,7 @@ return array(
         'DH\Hero\HeroServiceProvider',
         'DH\Import\ImportServiceProvider',
         'DH\Career\CareerServiceProvider',
+        'DH\Ranklist\RanklistServiceProvider',
 	),
 
 	/*

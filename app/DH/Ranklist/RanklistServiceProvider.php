@@ -13,6 +13,6 @@ class RanklistServiceProvider extends ServiceProvider
      */
     public function register()
     {
-        \Event::listen('DH.*', '\DH\Ranklist\EventListener');
+	    \Event::listen('DH.*', 'DH\Ranklist\EventListener');
     }
 }

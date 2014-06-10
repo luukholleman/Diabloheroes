@@ -3,6 +3,7 @@ namespace DH\Ranklist;
 
 use DH\Command\CommandBus;
 use DH\Event\Event;
+use DH\Ranklist\Command\UpdateRanksForHeroCommand;
 
 class EventListener
 {
@@ -13,6 +14,6 @@ class EventListener
      */
     public function Import_HeroWasImported(Event $event)
     {
-//        CommandBus::execute(new UpdateRanklistForHero($event->hero));
+        CommandBus::execute(new UpdateRanksForHeroCommand($event->hero));
     }
 } 

@@ -141,11 +141,11 @@ class ImportHeroCommandHandler implements CommandHandlerInterface
                 $heroSkillPassive->save();
             }
 
-            EventDispatcher::dispatch(new HeroWasImported($region, $battletag, $careerRegion, $hero));
-
             foreach ($apiHero->getItems(false) as $item) {
                 CommandBus::execute(new ImportItemCommand($region, $hero, $item->getSlot(), $item->getTooltipParams()));
             }
+
+	        EventDispatcher::dispatch(new HeroWasImported($region, $battletag, $careerRegion, $hero));
 
         } catch (Exception $e) {
             EventDispatcher::dispatch(new HeroWasNotImported($region, $battletag, $careerRegion, $heroId));
