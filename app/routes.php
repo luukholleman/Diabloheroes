@@ -23,7 +23,7 @@ Route::get('/', array(
 
 Route::get('/{ranklist}/{mode?}/{region?}', array(
 	'as' => 'home.ranklist',
-	'uses' => 'HomeController@showRanklist'
+	'uses' => '\DH\Ranklist\Controller\HomeController@showIndex'
 ));
 
 Route::group(['prefix' => 'api/v1'], function(){
