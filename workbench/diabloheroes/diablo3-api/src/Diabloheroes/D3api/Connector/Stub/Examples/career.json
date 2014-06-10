@@ -1,0 +1,89 @@
+{
+    "heroes" : [ {
+        "paragonLevel" : 73,
+        "name" : "Aveley",
+        "id" : 23407878,
+        "level" : 70,
+        "hardcore" : false,
+        "gender" : 1,
+        "dead" : false,
+        "class" : "wizard",
+        "last-updated" : 1397149731
+    }, {
+        "paragonLevel" : 73,
+        "name" : "Aveley",
+        "id" : 28500666,
+        "level" : 60,
+        "hardcore" : false,
+        "gender" : 1,
+        "dead" : false,
+        "class" : "demon-hunter",
+        "last-updated" : 1394736583
+    }, {
+        "paragonLevel" : 73,
+        "name" : "Aveley",
+        "id" : 28063643,
+        "level" : 60,
+        "hardcore" : false,
+        "gender" : 1,
+        "dead" : false,
+        "class" : "barbarian",
+        "last-updated" : 1387312348
+    }, {
+        "paragonLevel" : 73,
+        "name" : "Aveley",
+        "id" : 23748603,
+        "level" : 41,
+        "hardcore" : false,
+        "gender" : 0,
+        "dead" : false,
+        "class" : "witch-doctor",
+        "last-updated" : 1397071303
+    }, {
+        "paragonLevel" : 73,
+        "name" : "Aveley",
+        "id" : 40354809,
+        "level" : 18,
+        "hardcore" : false,
+        "gender" : 0,
+        "dead" : false,
+        "class" : "crusader",
+        "last-updated" : 1396559633
+    }, {
+        "paragonLevel" : 73,
+        "name" : "Aveley",
+        "id" : 34029959,
+        "level" : 3,
+        "hardcore" : false,
+        "gender" : 1,
+        "dead" : false,
+        "class" : "monk",
+        "last-updated" : 1388059936
+    } ],
+    "lastHeroPlayed" : 23407878,
+    "lastUpdated" : 1397149731,
+    "kills" : {
+        "monsters" : 80798,
+        "elites" : 6036,
+        "hardcoreMonsters" : 1573
+    },
+    "timePlayed" : {
+        "barbarian" : 0.378,
+        "crusader" : 0.0,
+        "demon-hunter" : 0.613,
+        "monk" : 0.055,
+        "witch-doctor" : 0.15,
+        "wizard" : 1.0
+    },
+    "fallenHeroes" : [ ],
+    "paragonLevel" : 73,
+    "paragonLevelHardcore" : 2,
+    "battleTag" : "Aveley#2218",
+    "progression" : {
+        "act1" : true,
+        "act2" : true,
+        "act3" : true,
+        "act4" : true,
+        "act5" : true
+    }
+}

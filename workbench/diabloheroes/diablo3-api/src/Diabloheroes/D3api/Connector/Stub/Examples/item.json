@@ -1,0 +1,137 @@
+
+{
+    "id" : "Helm_208",
+    "name" : "The Font",
+    "icon" : "helm_208_wizard_male",
+    "displayColor" : "yellow",
+    "tooltipParams" : "item/CkQI15rXiQUSBwgEFX_5Tl0d8nAHrR2aBgDLHSK8Wy8dnQeVJB1RUwyyIgsIARWKQgMAGA4gKjCJAjjXA0AASA9QDmCRBBj-5ffUC1AEWAI",
+    "requiredLevel" : 70,
+    "itemLevel" : 70,
+    "bonusAffixes" : 0,
+    "bonusAffixesMax" : 0,
+    "accountBound" : false,
+    "typeName" : "Rare Helm",
+    "type" : {
+        "twoHanded" : false,
+        "id" : "GenericHelm"
+    },
+    "armor" : {
+        "min" : 680.0,
+        "max" : 680.0
+    },
+    "attributes" : {
+        "primary" : [ {
+            "text" : "+556 Intelligence",
+            "affixType" : "default",
+            "color" : "blue"
+        }, {
+            "text" : "+555 Vitality",
+            "affixType" : "default",
+            "color" : "blue"
+        }, {
+            "text" : "Critical Hit Chance Increased by 4.5%",
+            "affixType" : "default",
+            "color" : "blue"
+        }, {
+            "text" : "Increases Disintegrate Damage by 12% (Wizard Only)",
+            "affixType" : "default",
+            "color" : "blue"
+        } ],
+        "secondary" : [ {
+            "text" : "+124 Fire Resistance",
+            "affixType" : "default",
+            "color" : "blue"
+        } ],
+        "passive" : [ {
+            "text" : "+124 Fire Resistance",
+            "affixType" : "default",
+            "color" : "blue"
+        } ]
+    },
+    "attributesRaw" : {
+        "Armor_Item" : {
+            "min" : 680.0,
+            "max" : 680.0
+        },
+        "Durability_Max" : {
+            "min" : 529.0,
+            "max" : 529.0
+        },
+        "Intelligence_Item" : {
+            "min" : 556.0,
+            "max" : 556.0
+        },
+        "Durability_Max_Before_Reforge" : {
+            "min" : 529.0,
+            "max" : 529.0
+        },
+        "Crit_Percent_Bonus_Capped" : {
+            "min" : 0.045,
+            "max" : 0.045
+        },
+        "Durability_Cur" : {
+            "min" : 471.0,
+            "max" : 471.0
+        },
+        "Resistance#Fire" : {
+            "min" : 124.0,
+            "max" : 124.0
+        },
+        "Vitality_Item" : {
+            "min" : 555.0,
+            "max" : 555.0
+        },
+        "Season" : {
+            "min" : 0.0,
+            "max" : 0.0
+        },
+        "Power_Damage_Percent_Bonus#Wizard_Disintegrate" : {
+            "min" : 0.12,
+            "max" : 0.12
+        }
+    },
+    "randomAffixes" : [ ],
+    "gems" : [ ],
+    "socketEffects" : [ ],
+    "craftedBy" : [ {
+        "id" : "T12_Armor_Helm",
+        "slug" : "sovereign-ascended-helm",
+        "name" : "Sovereign Ascended Helm",
+        "cost" : 18360,
+        "reagents" : [ {
+            "quantity" : 8,
+            "item" : {
+                "id" : "Crafting_AssortedParts_01",
+                "name" : "Reusable Parts",
+                "icon" : "crafting_assortedparts_01_demonhunter_male",
+                "displayColor" : "white",
+                "tooltipParams" : "item/reusable-parts"
+            }
+        }, {
+            "quantity" : 5,
+            "item" : {
+                "id" : "Crafting_Magic_01",
+                "name" : "Arcane Dust",
+                "icon" : "crafting_magic_01_demonhunter_male",
+                "displayColor" : "blue",
+                "tooltipParams" : "item/arcane-dust"
+            }
+        }, {
+            "quantity" : 45,
+            "item" : {
+                "id" : "Crafting_Rare_01",
+                "name" : "Veiled Crystal",
+                "icon" : "crafting_rare_01_demonhunter_male",
+                "displayColor" : "yellow",
+                "tooltipParams" : "item/veiled-crystal"
+            }
+        } ],
+        "itemProduced" : {
+            "id" : "Helm_208",
+            "name" : "Sovereign Ascended Helm",
+            "icon" : "helm_208_demonhunter_male",
+            "displayColor" : "yellow",
+            "tooltipParams" : "recipe/sovereign-ascended-helm"
+        }
+    } ]
+}
