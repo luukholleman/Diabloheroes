@@ -103,19 +103,9 @@ class Hero extends Eloquent{
         }
     }
 
-	public function getResourceUriAttribute()
-	{
-		return URL::action('Api\V1\HeroController@getDetail', ['id' => $this->id]);
-	}
-
 	public function getBattletagSlugAttribute()
 	{
 		return Str::slug($this->careerRegion->career->battletag);
-	}
-
-	public function getDetailUriAttribute()
-	{
-		return URL::to(sprintf('profile/%s/hero/%d', $this->battletag_slug, $this->blizzard_id));
 	}
 
 	public function eligibleForUpdate($timestamp){

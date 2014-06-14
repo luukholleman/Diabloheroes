@@ -11,7 +11,7 @@
 |
 */
 
-Route::controller('hero', 'HeroController', [
+Route::controller('hero', '\DH\Hero\Controller\HeroController', [
 	'getProfile' => 'hero.profile',
 	'getStats' => 'hero.stats',
 ]);

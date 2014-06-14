@@ -4,6 +4,10 @@
 namespace DH\Hero;
 
 
-class EventListener {
+use DH\Event\Event;
+
+class EventListener
+{
+    use \DH\Event\EventListener;
 
 } 

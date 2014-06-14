@@ -110,6 +110,11 @@ return array(
         'Way\Generators\GeneratorsServiceProvider',
 		'Barryvdh\Debugbar\ServiceProvider',
 		'Jenssegers\Agent\AgentServiceProvider',
+        'Mmanos\Search\SearchServiceProvider',
+        'DH\Hero\HeroServiceProvider',
+        'DH\Import\ImportServiceProvider',
+        'DH\Career\CareerServiceProvider',
+        'DH\Ranklist\RanklistServiceProvider',
 	),
 
 	/*
@@ -175,7 +180,8 @@ return array(
 		'URL'             => 'Illuminate\Support\Facades\URL',
 		'Validator'       => 'Illuminate\Support\Facades\Validator',
 		'View'            => 'Illuminate\Support\Facades\View',
-		'Agent'            => 'Jenssegers\Agent\Facades\Agent',
+		'Agent'           => 'Jenssegers\Agent\Facades\Agent',
+        'Search'          => 'Mmanos\Search\Facade',
 	),
 
     'cipher' => MCRYPT_RIJNDAEL_256

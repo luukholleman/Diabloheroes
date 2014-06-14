@@ -2,7 +2,8 @@
 
 namespace DH\Command;
 
-class CommandBus {
+class CommandBus
+{
 
     public static function execute($command)
     {

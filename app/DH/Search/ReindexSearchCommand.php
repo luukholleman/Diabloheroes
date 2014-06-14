@@ -4,6 +4,9 @@
 namespace DH\Search;
 
 
-class ReindexSearchCommand {
+use DH\Command\CommandInterface;
 
-} 
+class ReindexSearchCommand implements CommandInterface
+{
+
+}

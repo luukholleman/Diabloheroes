@@ -6,8 +6,10 @@
 	"require": {
         "laravel/framework": "4.1.*",
         "aveley/artisan-queue": "dev-master",
-        "diabloheroes/diablo3-api": "dev-master",
-        "jenssegers/agent": "*"
+        "jenssegers/agent": "*",
+        "mmanos/laravel-search": "dev-master",
+        "zendframework/zendsearch": "dev-master",
+        "elasticsearch/elasticsearch": "1.0.*@dev"
 	},
     "require-dev": {
         "laracasts/testdummy": "1.*",
@@ -19,14 +21,15 @@
 	"autoload": {
 		"classmap": [
 			"app/commands",
-			"app/controllers",
 			"app/models",
 			"app/repositories",
 			"app/database/migrations",
 			"app/database/seeds",
-			"app/tests",
-			"app/exceptions"
-		]
+			"app/tests"
+		],
+        "psr-4": {
+            "DH\\": "app/DH"
+        }
 	},
 	"scripts": {
 		"post-install-cmd": [

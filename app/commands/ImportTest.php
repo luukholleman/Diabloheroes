@@ -52,7 +52,7 @@ class ImportTest extends Command {
 		Queue::artisan('career:import', ['battletag' => 'Torahime#2305']);
 
 
-		foreach(range(1, 100) as $num){
+		foreach(range(0, 99) as $num){
 			$battletag = $this->smallBattletags[$num];
 
             Queue::artisan('career:import', ['battletag' => $battletag['name']]);
