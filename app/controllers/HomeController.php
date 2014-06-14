@@ -1,5 +1,8 @@
 <?php
 
+namespace DH\Ranklist\Controller;
+use RanklistRepository;
+use RankRepository;
 /**
  * Class HomeController
  */
