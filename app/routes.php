@@ -18,7 +18,7 @@ Route::controller('hero', 'HeroController', [
 
 Route::get('/', array(
 	'as' => 'home',
-	'uses' => 'HomeController@showIndex'
+	'uses' => '\DH\Ranklist\Controller\HomeController@showIndex'
 ));
 
 Route::get('/{ranklist}/{mode?}/{region?}', array(
