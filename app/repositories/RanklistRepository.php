@@ -45,9 +45,22 @@ class RanklistRepository implements RepositoryInterface
         return $this->getCategories(Ranklist::CAREER);
     }
 
-    /**
-     * @return Ranklist\Category[]
-     */
+	public function getHeroRanklists()
+	{
+		$ranklists = new \Illuminate\Support\Collection;
+
+		foreach($this->getHeroCategories() as $heroCategory)
+			foreach($heroCategory->ranklists as $ranklist)
+				$ranklists->push($ranklist);
+
+		return $ranklists;
+	}
+
+	/**
+	 * @param $type
+	 *
+	 * @return Ranklist\Category[]
+	 */
     private function getCategories($type)
     {
         return $this->ranklistCategory
