@@ -35,7 +35,7 @@ class UpdateRanksForHeroCommandHandler implements CommandHandlerInterface
 	 */
 	public function handle(CommandInterface $command)
 	{
-		if($command->hero->level >= \Config::get('dh.min_ranking_level', 0))
+		if($command->hero->level < \Config::get('dh.min_ranking_level'))
 			return; // hero does not meet the level requirement
 
 		foreach($this->ranklistRepository->getHeroRanklists() as $ranklist)
